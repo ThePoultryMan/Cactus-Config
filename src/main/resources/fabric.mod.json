@@ -1,29 +1,27 @@
 {
     "schemaVersion": 1,
-    "id": "modid",
-    "version": "0.1.0",
+    "id": "cactusconfig",
+    "version": "${version}",
 
-    "name": "Mod Name",
-    "description": "This mod is a template for other mods.",
+    "name": "Cactus Config",
+    "description": "A config library for Minecraft making use of toml4j and SpruceUI",
     "authors": [
         "ThePoultryMan"
     ],
     "contact": {
-        "sources": "https://github.com/ThePoultryMan/Mod-Template"
+        "sources": "https://github.com/ThePoultryMan/Cactus-Config"
     },
 
-    "license": "CC0-1.0",
-    "icon": "assets/modid/icon.png",
+    "license": "MIT",
+    "icon": "assets/cactusconfig/icon.png",
 
     "environment": "*",
     "entrypoints": {
         "main": [
-            "thepoultryman.modid.ModClass"
+            "com.github.thepoultryman.cactusconfig.CactusConfig"
         ]
     },
-    "mixins": [
-        "modid.mixins.json"
-    ],
+    "mixins": [],
 
     "depends": {
         "fabricloader": ">=0.12.12",
