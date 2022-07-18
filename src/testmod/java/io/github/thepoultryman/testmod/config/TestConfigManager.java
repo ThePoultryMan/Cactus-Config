@@ -1,8 +1,11 @@
 package io.github.thepoultryman.testmod.config;
 
 import io.github.thepoultryman.cactusconfig.ConfigManager;
+import io.github.thepoultryman.cactusconfig.OptionHolder;
+import net.minecraft.text.LiteralText;
 
 public class TestConfigManager extends ConfigManager {
+    public OptionHolder basic = new OptionHolder(new LiteralText("hey"), null);
     private boolean aBoolean;
 
     public TestConfigManager(String fileName) {
@@ -14,6 +17,7 @@ public class TestConfigManager extends ConfigManager {
         super.loadConfig();
 
         this.aBoolean = this.config.getOrElse("basic.a_boolean", false);
+        basic.addSpruceToggleOption("a_boolean", this::getaBoolean, this::setaBoolean);
     }
 
     public boolean getaBoolean() {
