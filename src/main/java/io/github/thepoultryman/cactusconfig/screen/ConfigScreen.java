@@ -25,15 +25,18 @@ public class ConfigScreen extends SpruceScreen {
 
         SpruceTabbedWidget tabs = this.addDrawableChild(new SpruceTabbedWidget(Position.origin(), this.width, this.height, this.title));
         for (OptionHolder optionHolder : optionHolders) {
-            this.addTab(optionHolder, tabs);
+            tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
     }
 
-    private void addTab(OptionHolder optionHolder, SpruceTabbedWidget tabbedWidget) {
-        var options = new SpruceOptionListWidget(Position.origin(), this.width, this.height);
-        SpruceOption[] optionsArray = new SpruceOption[optionHolder.spruceOptions.size()];
-        options.addAll(optionHolder.spruceOptions.toArray(optionsArray));
+    private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
+        var options = new SpruceOptionListWidget(Position.origin(), width, height);
 
-        tabbedWidget.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), options);
+        double amountOfDoubles = Math.floor(optionHolder.spruceOptions.size() / 2f);
+        for (int i = 0; i < (amountOfDoubles * 2) - 1;) {
+            options.addOptionEntry(optionHolder.spruceOptions.get(i), optionHolder.spruceOptions.get(++i));
+        }
+
+        return options;
     }
 }
