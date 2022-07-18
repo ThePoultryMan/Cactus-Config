@@ -51,6 +51,69 @@ public abstract class ConfigManager {
     }
 
     /**
+     * <p>Adds a new integer input field to the {@code optionHolder} provided.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     */
+    public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, int defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
+        int value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceIntegerOption(path, getter, setter, hasTooltip);
+    }
+
+    /**
+     * <p>Adds a new float input field to the {@code optionHolder} provided.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     */
+    public void getAndCreateFloatOption(OptionHolder optionHolder, String path, double defaultValue, Supplier<Float> getter, Consumer<Float> setter, boolean hasTooltip) {
+        double value = this.config.getOrElse(path, defaultValue);
+        setter.accept((float) value);
+        optionHolder.addSpruceFloatOption(path, getter, setter, hasTooltip);
+    }
+
+    /**
+     * <p>Adds a new double input field to the {@code optionHolder} provided.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     */
+    public void getAndCreateDoubleOption(OptionHolder optionHolder, String path, double defaultValue, Supplier<Double> getter, Consumer<Double> setter, boolean hasTooltip) {
+        double value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceDoubleOption(path, getter, setter, hasTooltip);
+    }
+
+    /**
      * <p>Sets the value of the key at the end of the specified path.
      * After the key has been set the file will be saved.</p>
      * <p>If the path does not exist, then a new key will be created,
