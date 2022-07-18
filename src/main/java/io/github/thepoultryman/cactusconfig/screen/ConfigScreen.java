@@ -32,9 +32,8 @@ public class ConfigScreen extends SpruceScreen {
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
         var options = new SpruceOptionListWidget(Position.origin(), width, height);
 
-        double amountOfDoubles = Math.floor(optionHolder.spruceOptions.size() / 2f);
-        for (int i = 0; i < (amountOfDoubles * 2) - 1;) {
-            options.addOptionEntry(optionHolder.spruceOptions.get(i), optionHolder.spruceOptions.get(++i));
+        for (SpruceOption option : optionHolder.spruceOptions) {
+            options.addSingleOptionEntry(option);
         }
 
         return options;
