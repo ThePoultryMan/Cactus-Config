@@ -1,9 +1,8 @@
 package io.github.thepoultryman.cactusconfig;
 
 import dev.lambdaurora.spruceui.option.SpruceOption;
+import dev.lambdaurora.spruceui.option.SpruceSeparatorOption;
 import dev.lambdaurora.spruceui.option.SpruceToggleBooleanOption;
-import dev.lambdaurora.spruceui.screen.SpruceScreen;
-import io.github.thepoultryman.cactusconfig.screen.ConfigScreen;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -51,6 +50,31 @@ public class OptionHolder {
     public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod) {
         this.spruceOptions.add(new SpruceToggleBooleanOption("cactus_config.option." + optionName, getMethod, setMethod,
                 new TranslatableText("cactus_config.option.desc." + optionName)));
+    }
+
+    /**
+     * <p>Adds a separating line within the config screen. This line can
+     * have a visible title within it, and can have a tooltip as well.</p>
+     * <p>This option is order-dependent because it will appear in the order
+     * that you add it. In example, adding it after 'optionA' but after
+     * 'optionB' will get you the display order of 'optionA'->separator->'optionB.'</p>
+     * @param separatorName Prefixed to "cactus_config.separator." for the
+     *                      key, and this key is used to set the title of
+     *                      the separator. Prefixed to "cactus_config.separator.tooltip."
+     *                      to set the translation key for the tooltip. If
+     *                      {@code hasTooltip} is false, then this key won't
+     *                      need to be defined in the language file.
+     * @param showTitle If set to true, the title of the separator, as
+     *                  defined in the language file, will be displayed
+     *                  inside the separator.
+     * @param hasTooltip If set to true, the tooltip, as defined in the
+     *                   language file, will be displayed. If set to false,
+     *                   you don't need to specify the tooltip in the
+     *                   language file.
+     */
+    public void addSpruceSeparator(String separatorName, boolean showTitle, boolean hasTooltip) {
+        this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.separator." + separatorName, showTitle,
+                hasTooltip ? new TranslatableText("cactus_config.spearator.tooltip" + separatorName) : null));
     }
 
     /**
