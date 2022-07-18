@@ -1,4 +1,4 @@
-package io.github.thepoultryman.testmod.screen;
+package io.github.thepoultryman.testmod.config.screen;
 
 import io.github.thepoultryman.cactusconfig.screen.ConfigScreen;
 import net.minecraft.client.gui.screen.Screen;
