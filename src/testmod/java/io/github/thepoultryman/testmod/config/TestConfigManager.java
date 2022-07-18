@@ -8,6 +8,7 @@ public class TestConfigManager extends ConfigManager {
     public OptionHolder basic = new OptionHolder(new LiteralText("hey"), null);
     private boolean aBoolean;
     private boolean aSecondBoolean;
+    private boolean anotherBoolean;
 
     public TestConfigManager(String fileName) {
         super(fileName);
@@ -19,6 +20,8 @@ public class TestConfigManager extends ConfigManager {
 
         this.getAndCreateBooleanOption(basic, "basic.a_boolean", true, this::getaBoolean, this::setaBoolean);
         this.getAndCreateBooleanOption(basic, "basic.a_second_boolean", false, this::getASecondBoolean, this::setASecondBoolean);
+        this.basic.addSpruceSeparator("basic.wow_a_separator", true, true);
+        this.getAndCreateBooleanOption(basic, "basic.another_boolean", true, this::getAnotherBoolean, this::setAnotherBoolean);
     }
 
     public boolean getaBoolean() {
@@ -37,5 +40,14 @@ public class TestConfigManager extends ConfigManager {
     public void setASecondBoolean(boolean b) {
         this.aSecondBoolean = b;
         this.setConfigOption("basic.a_second_boolean", b);
+    }
+
+    public boolean getAnotherBoolean() {
+        return this.anotherBoolean;
+    }
+
+    public void setAnotherBoolean(boolean b) {
+        this.anotherBoolean = b;
+        this.setConfigOption("basic.another_boolean", b);
     }
 }

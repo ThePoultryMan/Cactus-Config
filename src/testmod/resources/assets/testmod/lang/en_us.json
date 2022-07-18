@@ -2,5 +2,9 @@
     "cactus_config.option.basic.a_boolean": "A Boolean",
     "cactus_config.option.desc.basic.a_boolean": "A boolean example",
     "cactus_config.option.basic.a_second_boolean": "A Second Boolean",
-    "cactus_config.option.desc.basic.a_second_boolean": "Yet another boolean example"
+    "cactus_config.option.desc.basic.a_second_boolean": "Yet another boolean example",
+    "cactus_config.separator.basic.wow_a_separator": "Wow A Separator!",
+    "cactus_config.separator.tooltip.basic.wow_a_separator": "This is a super cool tooltip on a super cool separator.",
+    "cactus_config.option.basic.another_boolean": "Another Boolean !?!!?!",
+    "cactus_config.option.desc.basic.another_boolean": "Look at the lazy guy not implementing any other options besides booleans!"
 }
