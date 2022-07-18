@@ -44,10 +44,10 @@ public abstract class ConfigManager {
      * @param setter The method that will be used to set the value of this
      *               option.
      */
-    public void getAndCreateBooleanOption(OptionHolder optionHolder, String path, boolean defaultValue, Supplier<Boolean> getter, Consumer<Boolean> setter) {
+    public void getAndCreateBooleanOption(OptionHolder optionHolder, String path, boolean defaultValue, Supplier<Boolean> getter, Consumer<Boolean> setter, boolean hasTooltip) {
         boolean value = this.config.getOrElse(path, defaultValue);
         setter.accept(value);
-        optionHolder.addSpruceToggleOption(path, getter, setter);
+        optionHolder.addSpruceToggleOption(path, getter, setter, hasTooltip);
     }
 
     /**

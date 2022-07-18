@@ -38,7 +38,9 @@ public class OptionHolder {
      * passed into the method. {@code optionName} determines the translation
      * keys for both the name and description of the option. For
      * {@code getMethod} and {@code setMethod}, you're going to want to use
-     * methods that you have created for your config.</p>
+     * methods that you have created for your config. If you don't want
+     * your option to have a description (tooltip), you can set {@code hasTooltip}
+     * to false.</p>
      * @param optionName The name of the option that will be added. This
      *                   name will be the suffix to "cactus_config.option."
      *                   and "cactus_config.option.desc." for the translation
@@ -47,10 +49,13 @@ public class OptionHolder {
      *                  value of the option.
      * @param setMethod A {@link Consumer<Boolean>} used to set the value
      *                  of the option.
+     * @param hasTooltip If set to true, a tooltip containing the description
+     *                   will be displayed. If set to false, this tooltip
+     *                   won't exist
      */
-    public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod) {
+    public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceToggleBooleanOption("cactus_config.option." + optionName, getMethod, setMethod,
-                new TranslatableText("cactus_config.option.desc." + optionName)));
+                hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
     /**
