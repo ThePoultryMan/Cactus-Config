@@ -108,7 +108,7 @@ public class OptionHolder {
      *                   will be displayed. If set to false, this tooltip
      *                   won't be displayed.
      */
-    public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, Predicate<String> predicate, boolean hasTooltip) {
+    public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, boolean hasTooltip, Predicate<String> predicate) {
         this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, predicate,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
