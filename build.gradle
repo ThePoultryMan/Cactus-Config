@@ -97,11 +97,10 @@ publishing {
 
 	repositories {
 		maven {
-			name = 'GitHubPackages'
-			url = 'https://maven.pkg.github.com/thepoultryman/cactus-config'
+			url = 'https://repo.repsy.io/mvn/thepoultryman/cactus-config'
 			credentials {
-				username = project.findProperty('gpr.user') ?: System.getenv('USERNAME')
-				password = project.findProperty('gpr.key') ?: System.getenv('TOKEN')
+				username = System.getenv('USERNAME')
+				password = System.getenv('PASSWORD')
 			}
 		}
 	}
