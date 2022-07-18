@@ -97,10 +97,14 @@ publishing {
 
 	repositories {
 		maven {
-			url = 'https://repo.repsy.io/mvn/thepoultryman/cactus-config'
+			name = 'cloudsmith'
+			url = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			def releasesRepoUrl = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			def snapshotsRepoUrl = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
 			credentials {
 				username = System.getenv('USERNAME')
-				password = System.getenv('PASSWORD')
+				password = System.getenv('API_KEY')
 			}
 		}
 	}
