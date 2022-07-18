@@ -74,7 +74,7 @@ public class OptionHolder {
      */
     public void addSpruceSeparator(String separatorName, boolean showTitle, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.separator." + separatorName, showTitle,
-                hasTooltip ? new TranslatableText("cactus_config.spearator.tooltip" + separatorName) : null));
+                hasTooltip ? new TranslatableText("cactus_config.separator.tooltip." + separatorName) : null));
     }
 
     /**
