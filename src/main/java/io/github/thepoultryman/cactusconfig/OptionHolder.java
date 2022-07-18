@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class OptionHolder {
@@ -53,6 +54,62 @@ public class OptionHolder {
      */
     public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceToggleBooleanOption("cactus_config.option." + optionName, getMethod, setMethod,
+                hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
+    }
+
+    /**
+     * <p>Adds a {@link SpruceStringOption} based on the parameters passed
+     * into the method. {@code optionName} determines the translation keys
+     * for both the name and description of the option. For {@code getMethod}
+     * and {@code setMethod}, you're going to want to use methods that you
+     * have created for your config. If you don't want your option to have
+     * a description (tooltip), you can set {@code hasTooltip} to false.</p>
+     * <p>If you want to use a custom predicate instead of it always being
+     * true, then you should use the overloaded method that takes the
+     * predicate.</p>
+     * @param optionName The name of the option that will be added. This
+     *                   name will be the suffix to "cactus_config.option."
+     *                   and "cactus_config.option.desc." for the translation
+     *                   keys of the name and description, respectively.
+     * @param getMethod A {@link Supplier<String>} used to get the current
+     *                  value of the option.
+     * @param setMethod A {@link Consumer<String>} used to set the value
+     *                  of the option.
+     * @param hasTooltip If set to true, a tooltip containing the description
+     *                   will be displayed. If set to false, this tooltip
+     *                   won't be displayed.
+     */
+    public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, boolean hasTooltip) {
+        this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, (s) -> true,
+                hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
+    }
+
+    /**
+     * <p>Adds a {@link SpruceStringOption} based on the parameters passed
+     * into the method. {@code optionName} determines the translation keys
+     * for both the name and description of the option. For {@code getMethod}
+     * and {@code setMethod}, you're going to want to use methods that you
+     * have created for your config. If you don't want your option to have
+     * a description (tooltip), you can set {@code hasTooltip} to false.</p>
+     * <p>If you don't want to use a custom predicate instead of it always
+     * being true, then you should use the base method that doesn't take a
+     * predicate.</p>
+     * @param optionName The name of the option that will be added. This
+     *                   name will be the suffix to "cactus_config.option."
+     *                   and "cactus_config.option.desc." for the translation
+     *                   keys of the name and description, respectively.
+     * @param getMethod A {@link Supplier<String>} used to get the current
+     *                  value of the option.
+     * @param setMethod A {@link Consumer<String>} used to set the value
+     *                  of the option.
+     * @param predicate A predicate that will determine if the text in the
+     *                  field is valid.
+     * @param hasTooltip If set to true, a tooltip containing the description
+     *                   will be displayed. If set to false, this tooltip
+     *                   won't be displayed.
+     */
+    public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, Predicate<String> predicate, boolean hasTooltip) {
+        this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, predicate,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
