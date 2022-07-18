@@ -114,6 +114,31 @@ public abstract class ConfigManager {
     }
 
     /**
+     * <p>Adds a new slider to the {@code optionHolder} provided.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param min The minimum value that the slider will
+     * @param max The maximum value that the slider will
+     * @param step How much the value will increase or decrease each time
+     *             you take a 'step' on the slider.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     */
+    public void getAndCreateSliderOption(OptionHolder optionHolder, String path, double defaultValue, double min, double max, float step, Supplier<Double> getter, Consumer<Double> setter, boolean hasTooltip) {
+        double value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceSliderOption(path, min, max, step, getter, setter, hasTooltip);
+    }
+
+    /**
      * <p>Sets the value of the key at the end of the specified path.
      * After the key has been set the file will be saved.</p>
      * <p>If the path does not exist, then a new key will be created,
