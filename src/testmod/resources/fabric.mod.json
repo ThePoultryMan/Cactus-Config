@@ -21,7 +21,7 @@
             "io.github.thepoultryman.testmod.TestMod"
         ],
         "modmenu": [
-            "io.github.thepoultryman.testmod.ModMenuIntegration"
+            "io.github.thepoultryman.testmod.config.ModMenuIntegration"
         ]
     },
     "mixins": [],
