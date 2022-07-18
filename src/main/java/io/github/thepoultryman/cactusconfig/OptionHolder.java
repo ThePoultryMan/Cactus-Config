@@ -49,7 +49,7 @@ public class OptionHolder {
      *                  of the option.
      * @param hasTooltip If set to true, a tooltip containing the description
      *                   will be displayed. If set to false, this tooltip
-     *                   won't exist
+     *                   won't be displayed.
      */
     public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceToggleBooleanOption("cactus_config.option." + optionName, getMethod, setMethod,
@@ -74,7 +74,7 @@ public class OptionHolder {
      *                  of the option.
      * @param hasTooltip If set to true, a tooltip containing the description
      *                   will be displayed. If set to false, this tooltip
-     *                   won't exist
+     *                   won't be displayed.
      */
     public void addSpruceIntegerOption(String optionName, Supplier<Integer> getMethod, Consumer<Integer> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceIntegerInputOption("cactus_config.option." + optionName, getMethod, setMethod,
@@ -99,7 +99,7 @@ public class OptionHolder {
      *                  of the option.
      * @param hasTooltip If set to true, a tooltip containing the description
      *                   will be displayed. If set to false, this tooltip
-     *                   won't exist
+     *                   won't be displayed.
      */
     public void addSpruceFloatOption(String optionName, Supplier<Float> getMethod, Consumer<Float> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceFloatInputOption("cactus_config.option." + optionName, getMethod, setMethod,
@@ -124,7 +124,7 @@ public class OptionHolder {
      *                  of the option.
      * @param hasTooltip If set to true, a tooltip containing the description
      *                   will be displayed. If set to false, this tooltip
-     *                   won't exist
+     *                   won't be displayed.
      */
     public void addSpruceDoubleOption(String optionName, Supplier<Double> getMethod, Consumer<Double> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceDoubleInputOption("cactus_config.option." + optionName, getMethod, setMethod,
