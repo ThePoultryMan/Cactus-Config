@@ -13,6 +13,7 @@ public class TestConfigManager extends ConfigManager {
     private int superCoolInteger;
     private float superCoolFloat;
     private double averageDouble;
+    private double slidingDouble;
 
     public TestConfigManager(String fileName) {
         super(fileName);
@@ -31,6 +32,7 @@ public class TestConfigManager extends ConfigManager {
         this.getAndCreateFloatOption(numericTab, "numeric.super_cool_float", 57.8924D, this::getSuperCoolFloat, this::setSuperCoolFloat, true);
         this.numericTab.addSpruceSeparator("numeric.no_tooltip", true, true);
         this.getAndCreateDoubleOption(numericTab, "numeric.average_double", 23.2D, this::getAverageDouble, this::setAverageDouble, false);
+        this.getAndCreateSliderOption(numericTab, "numeric.sliding_double", 120D, 30D, 240D, 1f, this::getSlidingDouble, this::setSlidingDouble, false);
     }
 
     public boolean getaBoolean() {
@@ -85,5 +87,14 @@ public class TestConfigManager extends ConfigManager {
     public void setAverageDouble(double avgDouble) {
         this.averageDouble = avgDouble;
         this.setConfigOption("numeric.average_double", avgDouble);
+    }
+
+    public double getSlidingDouble() {
+        return this.slidingDouble;
+    }
+
+    public void setSlidingDouble(double slidDouble) {
+        this.slidingDouble = slidDouble;
+        this.setConfigOption("numeric.sliding_double", slidDouble);
     }
 }
