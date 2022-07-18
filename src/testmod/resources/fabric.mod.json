@@ -19,6 +19,9 @@
     "entrypoints": {
         "main": [
             "io.github.thepoultryman.testmod.TestMod"
+        ],
+        "modmenu": [
+            "io.github.thepoultryman.testmod.ModMenuIntegration"
         ]
     },
     "mixins": [],
@@ -27,7 +30,8 @@
         "fabricloader": ">=0.12.12",
         "fabric": "*",
         "minecraft": "1.18.x",
-        "java": ">=17"
+        "java": ">=17",
+        "cactusconfig": "0.1.0"
     },
     "suggests": {
 
