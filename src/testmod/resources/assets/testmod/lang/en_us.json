@@ -14,5 +14,7 @@
     "cactus_config.separator.numeric.no_tooltip": "No Tooltip",
     "cactus_config.separator.tooltip.numeric.no_tooltip": "The options below don't have a tooltip. TRY IT!",
     "cactus_config.option.numeric.average_double": "Average Double",
-    "cactus_config.option.numeric.sliding_double": "Sliding Double"
+    "cactus_config.option.numeric.sliding_double": "Sliding Double",
+    "cactus_config.option.too_many_strings.first_string": "First String",
+    "cactus_config.option.desc.too_many_strings.first_string": "The first ever string field created with Cactus Config."
 }

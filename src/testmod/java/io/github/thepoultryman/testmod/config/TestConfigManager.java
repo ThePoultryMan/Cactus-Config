@@ -14,6 +14,8 @@ public class TestConfigManager extends ConfigManager {
     private float superCoolFloat;
     private double averageDouble;
     private double slidingDouble;
+    public OptionHolder tooManyStringsTab = new OptionHolder(new LiteralText("Too Many Strings"), new LiteralText("Way too many string fields"));
+    private String firstString;
 
     public TestConfigManager(String fileName) {
         super(fileName);
@@ -33,6 +35,8 @@ public class TestConfigManager extends ConfigManager {
         this.numericTab.addSpruceSeparator("numeric.no_tooltip", true, true);
         this.getAndCreateDoubleOption(numericTab, "numeric.average_double", 23.2D, this::getAverageDouble, this::setAverageDouble, false);
         this.getAndCreateSliderOption(numericTab, "numeric.sliding_double", 120D, 30D, 240D, 1f, this::getSlidingDouble, this::setSlidingDouble, false);
+
+        this.getAndCreateStringOption(tooManyStringsTab, "too_many_strings.first_string", "", this::getFirstString, this::setFirstString, true);
     }
 
     public boolean getaBoolean() {
@@ -96,5 +100,14 @@ public class TestConfigManager extends ConfigManager {
     public void setSlidingDouble(double slidDouble) {
         this.slidingDouble = slidDouble;
         this.setConfigOption("numeric.sliding_double", slidDouble);
+    }
+
+    public String getFirstString() {
+        return this.firstString;
+    }
+
+    public void setFirstString(String string) {
+        this.firstString = string;
+        this.setConfigOption("too_many_strings.first_string", string);
     }
 }

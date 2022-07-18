@@ -11,6 +11,6 @@ public class ModMenuIntegration implements ModMenuApi {
     @Override
     public ConfigScreenFactory<?> getModConfigScreenFactory() {
         return (ConfigScreenFactory<Screen>) parent -> new ConfigScreen(new LiteralText("Testmod Config Screen"), parent,
-                TestMod.testConfigManager.basic, TestMod.testConfigManager.numericTab);
+                TestMod.testConfigManager.basic, TestMod.testConfigManager.numericTab, TestMod.testConfigManager.tooManyStringsTab);
     }
 }
