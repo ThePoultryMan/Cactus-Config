@@ -65,8 +65,7 @@ public class OptionHolder {
      * have created for your config. If you don't want your option to have
      * a description (tooltip), you can set {@code hasTooltip} to false.</p>
      * <p>If you want to use a custom predicate instead of it always being
-     * true, then you should use the overloaded method that takes the
-     * predicate.</p>
+     * true, then you should use the overloaded method that takes the predicate.</p>
      * @param optionName The name of the option that will be added. This
      *                   name will be the suffix to "cactus_config.option."
      *                   and "cactus_config.option.desc." for the translation
@@ -102,11 +101,11 @@ public class OptionHolder {
      *                  value of the option.
      * @param setMethod A {@link Consumer<String>} used to set the value
      *                  of the option.
-     * @param predicate A predicate that will determine if the text in the
-     *                  field is valid.
      * @param hasTooltip If set to true, a tooltip containing the description
      *                   will be displayed. If set to false, this tooltip
      *                   won't be displayed.
+     * @param predicate A predicate that will determine if the text in the
+     *                  field is valid.
      */
     public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, boolean hasTooltip, Predicate<String> predicate) {
         this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, predicate,
