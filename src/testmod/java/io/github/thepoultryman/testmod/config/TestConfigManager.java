@@ -39,6 +39,11 @@ public class TestConfigManager extends ConfigManager {
         this.getAndCreateStringOption(tooManyStringsTab, "too_many_strings.first_string", "", this::getFirstString, this::setFirstString, true);
     }
 
+    @Override
+    public boolean canReset() {
+        return true;
+    }
+
     public boolean getaBoolean() {
         return this.aBoolean;
     }

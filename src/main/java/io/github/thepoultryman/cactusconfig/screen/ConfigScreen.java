@@ -8,6 +8,7 @@ import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
+import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -17,11 +18,13 @@ import java.util.List;
 
 public class ConfigScreen extends SpruceScreen {
     public final Screen parent;
+    public final ConfigManager configManager;
     public final OptionHolder[] optionHolders;
 
-    public ConfigScreen(Text title, Screen parent, OptionHolder... optionHolders) {
+    public ConfigScreen(Text title, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
         super(title);
         this.parent = parent;
+        this.configManager = configManager;
         this.optionHolders = optionHolders;
     }
 
@@ -34,8 +37,13 @@ public class ConfigScreen extends SpruceScreen {
             tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
 
-        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 75, this.height - 29), 150, 20, SpruceTexts.GUI_DONE,
+        int xLocation = this.configManager.canReset() ? this.width / 2 + 4 : this.width / 2 - 75;
+        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 28), 150, 20, SpruceTexts.GUI_DONE,
                 button -> this.client.setScreen(this.parent)));
+        if (this.configManager.canReset()) {
+            this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 154, this.height - 28), 150, 20, SpruceTexts.RESET_TEXT,
+                    button -> this.configManager.reset())); // TODO: Add warning widget.
+        }
     }
 
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {

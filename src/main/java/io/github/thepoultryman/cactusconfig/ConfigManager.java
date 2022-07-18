@@ -30,6 +30,10 @@ public abstract class ConfigManager {
         this.config.load();
     }
 
+    public abstract boolean canReset();
+
+    public void reset() {}
+
     /**
      * <p>Adds a new toggle switch option to the {@code optionHolder} provided.</p>
      * @param optionHolder The {@link OptionHolder} that you want the toggle
