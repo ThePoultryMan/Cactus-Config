@@ -1,9 +1,11 @@
 package io.github.thepoultryman.cactusconfig.screen;
 
 import dev.lambdaurora.spruceui.Position;
+import dev.lambdaurora.spruceui.SpruceTexts;
 import dev.lambdaurora.spruceui.option.SpruceOption;
 import dev.lambdaurora.spruceui.option.SpruceSeparatorOption;
 import dev.lambdaurora.spruceui.screen.SpruceScreen;
+import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
@@ -31,6 +33,9 @@ public class ConfigScreen extends SpruceScreen {
         for (OptionHolder optionHolder : optionHolders) {
             tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
+
+        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 75, this.height - 29), 150, 20, SpruceTexts.GUI_DONE,
+                button -> this.client.setScreen(this.parent)));
     }
 
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
