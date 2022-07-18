@@ -53,4 +53,4 @@ jobs:
         run: ./gradlew publish
         env:
           USERNAME: ${{ secrets.MAVEN_USERNAME }}
-          API_TOKEN: ${{ secrets.MAVEN_API_TOKEN }}
+          API_KEY: ${{ secrets.MAVEN_API_TOKEN }}
