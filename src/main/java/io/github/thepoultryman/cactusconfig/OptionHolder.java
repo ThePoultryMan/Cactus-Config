@@ -4,6 +4,7 @@ import dev.lambdaurora.spruceui.option.*;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
+import net.minecraft.util.Formatting;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -258,6 +259,6 @@ public class OptionHolder {
      * @return The description set in the constructor, as {@link Text}.
      */
     public Text getDescription() {
-        return this.description;
+        return this.description == null ? null : this.description.shallowCopy().formatted(Formatting.GRAY);
     }
 }
