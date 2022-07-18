@@ -10,7 +10,7 @@ jobs:
   publish:
     name: Publish Package To Cloudsmith
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, '[publish]'}}
+    if: ${{ contains(github.event.head_commit.message, '[publish]') }}
     steps:
       - name: checkout repository
         uses: actions/checkout@v3
