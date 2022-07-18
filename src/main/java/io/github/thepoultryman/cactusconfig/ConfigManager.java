@@ -27,20 +27,17 @@ public abstract class ConfigManager {
     }
 
     public void setConfigOption(String optionPath, Object optionValue) {
-        if (this.config.contains(optionPath)) {
-            this.config.set(optionPath, optionValue);
-            this.config.save();
-        } else {
-            CactusConfig.LOGGER.warn("The path '" + optionPath + "' does not exist, and therefore it cannot be set.");
-        }
+        this.config.set(optionPath, optionValue);
+        this.config.save();
     }
 
-    public Object getConfigOption(String optionPath) {
+    public Object getConfigOption(String optionPath, Object defaultValue) {
         if (this.config.contains(optionPath)) {
             return this.config.get(optionPath);
         } else {
-            CactusConfig.LOGGER.warn("The path '" + optionPath + "' does not exist, and therefore it cannot be gotten.");
-            return null;
+            Object obj = this.config.set(optionPath, defaultValue);
+            this.config.save();
+            return obj;
         }
     }
 }
