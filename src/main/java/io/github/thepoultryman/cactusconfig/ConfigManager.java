@@ -4,6 +4,7 @@ import com.electronwill.nightconfig.core.file.FileConfig;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public abstract class ConfigManager {
@@ -48,6 +49,55 @@ public abstract class ConfigManager {
         boolean value = this.config.getOrElse(path, defaultValue);
         setter.accept(value);
         optionHolder.addSpruceToggleOption(path, getter, setter, hasTooltip);
+    }
+
+    /**
+     * <p>Adds a new string (text) field to the {@code optionHolder} provided.</p>
+     * <p>If you want to use a custom predicate instead of it always being
+     * true, then you should use the overloaded method that takes the predicate.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     */
+    public void getAndCreateStringOption(OptionHolder optionHolder, String path, String defaultValue, Supplier<String> getter, Consumer<String> setter, boolean hasTooltip) {
+        String value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceStringOption(path, getter, setter, hasTooltip);
+    }
+
+    /**
+     * <p>Adds a new string (text) field to the {@code optionHolder} provided.</p>
+     * <p>If you don't want to use a custom predicate instead of it always
+     * being true, then you should use the base method that doesn't take a
+     * predicate.</p>
+     * @param optionHolder The {@link OptionHolder} that you want the field
+     *                     to be added to. Remember: {@link OptionHolder}'s
+     *                     correspond to the tab that the option will be
+     *                     added to.
+     * @param path The path to the key within the TOML file you want to
+     *             correspond with this option.
+     * @param defaultValue The value that the key will default to if it
+     *                     cannot be found.
+     * @param getter The method that will be used to get the value of this
+     *               option.
+     * @param setter The method that will be used to set the value of this
+     *               option.
+     * @param predicate A predicate that will determine if the text in the
+     *                  field is valid.
+     */
+    public void getAndCreateStringOption(OptionHolder optionHolder, String path, String defaultValue, Supplier<String> getter, Consumer<String> setter, boolean hasTooltip, Predicate<String> predicate) {
+        String value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceStringOption(path, getter, setter, hasTooltip, predicate);
     }
 
     /**
