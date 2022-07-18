@@ -1,4 +1,4 @@
 {
-    "config.testmod.title": "Test Mod Config Title",
-    "config.testmod.tabs_title": "Test Mod Config Tabs"
+    "cactus_config.option.basic.a_boolean": "A Boolean",
+    "cactus_config.option.desc.basic.a_boolean": "A boolean example"
 }
