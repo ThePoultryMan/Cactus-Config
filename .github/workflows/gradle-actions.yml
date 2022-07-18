@@ -5,10 +5,11 @@
 
 name: build
 on:
-  push
-  pull_request
+  push:
+  pull_request:
   release:
-    types: [published]
+    types:
+      - published
 
 jobs:
   build:
