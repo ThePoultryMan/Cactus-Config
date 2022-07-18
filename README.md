@@ -1,6 +1,27 @@
-# Mod Template
+# Cactus Config
 
 ## About
 
-This is a mod template created by ThePoultryMan on GitHub. It was forked from the [fabric-example-mod](https://github.com/FabricMC/fabric-example-mod).
-The mod has switched to Quilt Mappings and I have changed the format to suit my needs of creating a new mod.
+Cactus Config is a library mod for Minecraft.
+
+## For Users
+
+If a mod requires Cactus Config but does not include it, you can download it from GitHub releases.
+
+## For Developers
+
+To use Cactus Config in a mod project, use the repository and modImplementation as provided below.
+
+#### Repository
+```groovy
+repositories {
+    // Comming soon
+}
+```
+
+#### Dependency
+Make sure that you replace _VERSION_ with the most recent version.
+```groovy
+dependencies {
+    include modImplementation('io.github.thepoultryman:cactus-config:VERSION')
+```
