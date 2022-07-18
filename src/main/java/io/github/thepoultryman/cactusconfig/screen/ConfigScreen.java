@@ -23,7 +23,7 @@ public abstract class ConfigScreen extends SpruceScreen {
     }
 
     /**
-     * This return value of this determines the name of the {@code SpruceTabWidget}.
+     * The return value of this determines the name of the {@code SpruceTabWidget}.
      * @return The translatable text used to get the title.
      */
     public abstract TranslatableText getConfigScreenTitle();
