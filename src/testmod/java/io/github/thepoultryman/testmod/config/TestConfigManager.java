@@ -44,6 +44,18 @@ public class TestConfigManager extends ConfigManager {
         return true;
     }
 
+    @Override
+    public void reset() {
+        this.setaBoolean(true);
+        this.setASecondBoolean(false);
+        this.setAnotherBoolean(true);
+        this.setSuperCoolInteger(1);
+        this.setSuperCoolFloat(57.8924f);
+        this.setAverageDouble(23.2D);
+        this.setSlidingDouble(120D);
+        this.setFirstString("");
+    }
+
     public boolean getaBoolean() {
         return this.aBoolean;
     }
