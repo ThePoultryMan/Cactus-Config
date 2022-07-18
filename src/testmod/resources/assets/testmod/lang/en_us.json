@@ -6,5 +6,12 @@
     "cactus_config.separator.basic.wow_a_separator": "Wow A Separator!",
     "cactus_config.separator.tooltip.basic.wow_a_separator": "This is a super cool tooltip on a super cool separator.",
     "cactus_config.option.basic.another_boolean": "Another Boolean !?!!?!",
-    "cactus_config.option.desc.basic.another_boolean": "Look at the lazy guy not implementing any other options besides booleans!"
+    "cactus_config.option.desc.basic.another_boolean": "Look at the lazy guy not implementing any other options besides booleans!",
+    "cactus_config.option.numeric.super_cool_integer": "Super Cool Integer",
+    "cactus_config.option.desc.numeric.super_cool_integer": "A demo integer input",
+    "cactus_config.option.numeric.super_cool_float": "Super Cool Float",
+    "cactus_config.option.desc.numeric.super_cool_float": "A demo float input",
+    "cactus_config.separator.numeric.no_tooltip": "No Tooltip",
+    "cactus_config.separator.tooltip.numeric.no_tooltip": "The options below don't have a tooltip. TRY IT!",
+    "cactus_config.option.numeric.average_double": "Average Double"
 }
