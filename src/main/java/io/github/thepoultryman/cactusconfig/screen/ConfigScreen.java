@@ -42,7 +42,10 @@ public class ConfigScreen extends SpruceScreen {
                 button -> this.client.setScreen(this.parent)));
         if (this.configManager.canReset()) {
             this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 154, this.height - 28), 150, 20, SpruceTexts.RESET_TEXT,
-                    button -> this.configManager.reset())); // TODO: Add warning widget.
+                    button -> {
+                        this.configManager.reset();
+                        this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
+                    })); // TODO: Add warning widget.
         }
     }
 
