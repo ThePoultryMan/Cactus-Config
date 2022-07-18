@@ -16,8 +16,7 @@ public class TestConfigManager extends ConfigManager {
     public void loadConfig() {
         super.loadConfig();
 
-        this.aBoolean = this.config.getOrElse("basic.a_boolean", false);
-        basic.addSpruceToggleOption("a_boolean", this::getaBoolean, this::setaBoolean);
+        this.getAndSetBooleanOption(basic, "basic.a_boolean", true, this::getaBoolean, this::setaBoolean);
     }
 
     public boolean getaBoolean() {
