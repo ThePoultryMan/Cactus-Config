@@ -1,3 +1,5 @@
+[![Hosted By: Cloudsmith](https://img.shields.io/badge/OSS%20hosting%20by-cloudsmith-blue?logo=cloudsmith&style=for-the-badge)](https://cloudsmith.com)
+
 # Cactus Config
 
 ## About
@@ -15,7 +17,10 @@ To use Cactus Config in a mod project, use the repository and modImplementation 
 #### Repository
 ```groovy
 repositories {
-    // Comming soon
+    maven {
+        name = 'Cactus Config'
+        url = 'https://dl.cloudsmith.io/public/carbon-toast/cactus-config/maven/'
+    }
 }
 ```
 
@@ -24,4 +29,11 @@ Make sure that you replace _VERSION_ with the most recent version.
 ```groovy
 dependencies {
     include modImplementation('io.github.thepoultryman:cactus-config:VERSION')
+}
 ```
+[![Latest version of 'cactus-config' @ Cloudsmith](https://api-prd.cloudsmith.io/v1/badges/version/carbon-toast/cactus-config/maven/cactus-config/latest/a=noarch;xg=io.github.thepoultryman/?render=true&show_latest=true)](https://cloudsmith.io/~carbon-toast/repos/cactus-config/packages/detail/maven/cactus-config/latest/a=noarch;xg=io.github.thepoultryman/)
+
+_Package repository hosting is graciously provided by  [Cloudsmith](https://cloudsmith.com).
+Cloudsmith is the only fully hosted, cloud-native, universal package management solution, that
+enables your organization to create, store and share packages in any format, to any place, with total
+confidence._
