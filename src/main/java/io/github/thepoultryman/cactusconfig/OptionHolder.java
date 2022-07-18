@@ -33,11 +33,11 @@ public class OptionHolder {
     }
 
     /**
-     * <p>Adds a {@link SpruceToggleBooleanOption} based on the parameters passed into
-     * the method. {@code optionName} determines the translation keys for
-     * both the name and description of the option. For {@code getMethod}
-     * and {@code setMethod}, you're going to want to use methods that you
-     * have created for your config.</p>
+     * <p>Adds a {@link SpruceToggleBooleanOption} based on the parameters
+     * passed into the method. {@code optionName} determines the translation
+     * keys for both the name and description of the option. For
+     * {@code getMethod} and {@code setMethod}, you're going to want to use
+     * methods that you have created for your config.</p>
      * @param optionName The name of the option that will be added. This
      *                   name will be the suffix to "cactus_config.option."
      *                   and "cactus_config.option.desc." for the translation
