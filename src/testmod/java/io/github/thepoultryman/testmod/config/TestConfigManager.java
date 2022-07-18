@@ -17,7 +17,7 @@ public class TestConfigManager extends ConfigManager {
         super.loadConfig();
 
         this.getAndSetBooleanOption(basic, "basic.a_boolean", true,
-                () -> (boolean) this.getConfigOption("basic.a_boolean"),
+                () -> (boolean) this.getConfigOption("basic.a_boolean", true),
                 b -> this.setConfigOption("basic.a_boolean", b));
     }
 }
