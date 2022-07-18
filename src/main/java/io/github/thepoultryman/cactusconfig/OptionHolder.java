@@ -1,6 +1,7 @@
 package io.github.thepoultryman.cactusconfig;
 
 import dev.lambdaurora.spruceui.option.*;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 
@@ -127,6 +128,38 @@ public class OptionHolder {
      */
     public void addSpruceDoubleOption(String optionName, Supplier<Double> getMethod, Consumer<Double> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceDoubleInputOption("cactus_config.option." + optionName, getMethod, setMethod,
+                hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
+    }
+
+    /**
+     * <p>Adds a {@link SpruceDoubleOption} based on the parameters passed
+     * into the method. {@code optionName} determines the translation keys
+     * for both the name and description of the option. For {@code getMethod}
+     * and {@code setMethod}, you're going to want to use methods that you
+     * have created for your config. If you don't want your option to have
+     * a descriptions (tooltip), you can set {@code hasTooltip} to false.
+     * The created slider will have a minimum and maximum based on the
+     * {@code min} and {@code max} parameters, respectively. The slider
+     * will move in steps the size of the {@code step} parameter.</p>
+     * @param optionName The name of the option that will be added. This
+     *                   name will be the suffix to "cactus_config.option."
+     *                   and "cactus_config.option.desc." for the translation
+     *                   keys of the name and description, respectively.
+     * @param min The minimum value that the slider will go down to.
+     * @param max The maximum value that the slider will go to.
+     * @param step How much the value will increase or decrease each time
+     *             you take a 'step' on the slider.
+     * @param getMethod A {@link Supplier<Double>} used to get the current
+     *                  value of the option.
+     * @param setMethod A {@link Consumer<Double>} used to set the value
+     *                  of the option.
+     * @param hasTooltip If set to true, a tooltip containing the description
+     *                   will be displayed. If set to false, this tooltip
+     *                   won't be displayed.
+     */
+    public void addSpruceSliderOption(String optionName, double min, double max, float step, Supplier<Double> getMethod, Consumer<Double> setMethod, boolean hasTooltip) {
+        this.spruceOptions.add(new SpruceDoubleOption("cactus_config.option." + optionName, min, max, step, getMethod, setMethod,
+                (option) -> option.getDisplayText(new LiteralText(String.valueOf(getMethod.get()))),
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
