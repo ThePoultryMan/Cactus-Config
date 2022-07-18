@@ -4,7 +4,11 @@
 # against bad commits.
 
 name: build
-on: [pull_request, push]
+on:
+  push
+  pull_request
+  release:
+    types: [published]
 
 jobs:
   build:
@@ -32,3 +36,20 @@ jobs:
         with:
           name: Artifacts
           path: build/libs/
+  publish:
+    name: Publish Package To Cloudsmith
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.head_commit.message, '[publish]') }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: set up java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+      - name: publish package to cloudsmith
+        run: ./gradlew publish
+        env:
+          USERNAME: ${{ secrets.MAVEN_USERNAME }}
+          API_TOKEN: ${{ secrets.MAVEN_API_TOKEN }}
