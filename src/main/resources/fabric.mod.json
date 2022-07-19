@@ -19,6 +19,9 @@
     "entrypoints": {
         "main": [
             "io.github.thepoultryman.cactusconfig.CactusConfig"
+        ],
+        "modmenu": [
+            "io.github.thepoultryman.cactusconfig.mod.ModMenuIntegration"
         ]
     },
     "mixins": [],
