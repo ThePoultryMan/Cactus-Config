@@ -10,7 +10,6 @@ import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
-import io.github.thepoultryman.cactusconfig.screen.widgets.ConfirmResetWidget;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
@@ -39,8 +38,6 @@ public class ConfigScreen extends SpruceScreen {
             tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
 
-        ConfirmResetWidget resetWidget = new ConfirmResetWidget(this, Position.center(0, 0), this.width, this.height);
-        this.addDrawableChild(resetWidget);
         int xLocation = this.configManager.canReset() ? this.width / 2 + 4 : this.width / 2 - 75;
         this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 28), 150, 20, SpruceTexts.GUI_DONE,
                 button -> this.client.setScreen(this.parent)));
