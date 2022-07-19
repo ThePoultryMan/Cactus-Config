@@ -8,6 +8,7 @@ import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
+import io.github.thepoultryman.cactusconfig.CactusConfigTexts;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
 import net.minecraft.client.MinecraftClient;
@@ -21,6 +22,7 @@ public class ConfigScreen extends SpruceScreen {
     public final Screen parent;
     public final ConfigManager configManager;
     public final OptionHolder[] optionHolders;
+    private boolean reset;
 
     public ConfigScreen(Text title, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
         super(title);
@@ -43,7 +45,17 @@ public class ConfigScreen extends SpruceScreen {
                 button -> this.client.setScreen(this.parent)));
         if (this.configManager.canReset()) {
             this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 154, this.height - 28), 150, 20, SpruceTexts.RESET_TEXT,
-                    button -> resetWidget.setVisible(true)));
+                    button -> {
+                if (!this.reset) {
+                    this.reset = true;
+                    button.setMessage(CactusConfigTexts.ARE_YOU_SURE);
+                } else {
+                    this.reset = false;
+                    button.setMessage(SpruceTexts.RESET_TEXT);
+                    this.configManager.reset();
+                    this.init(this.client, this.client.getWindow().getScaledWidth(), this.client.getWindow().getScaledHeight());
+                }
+                    }));
         }
     }
 
