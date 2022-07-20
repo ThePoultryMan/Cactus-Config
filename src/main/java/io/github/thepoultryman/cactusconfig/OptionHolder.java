@@ -31,6 +31,7 @@ public class OptionHolder {
     public OptionHolder(Text title, @Nullable Text description) {
         this.title = title;
         this.description = description;
+        this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.title_separator", false, null));
     }
 
     /**

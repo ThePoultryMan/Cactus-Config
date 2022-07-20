@@ -16,6 +16,7 @@ import io.github.thepoultryman.cactusconfig.OptionHolder;
 import io.github.thepoultryman.cactusconfig.util.CactusScreenUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
+import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class ConfigScreen extends SpruceScreen {
 
     public ConfigScreen(Text title, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
         super(title);
-        this.screenTitle = title;
+        this.screenTitle = title.copy().formatted(Formatting.WHITE);
         this.parent = parent;
         this.configManager = configManager;
         this.optionHolders = optionHolders;
