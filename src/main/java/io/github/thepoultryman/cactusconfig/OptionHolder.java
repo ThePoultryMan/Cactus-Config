@@ -1,6 +1,7 @@
 package io.github.thepoultryman.cactusconfig;
 
 import dev.lambdaurora.spruceui.option.*;
+import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -223,7 +224,7 @@ public class OptionHolder {
 
     public <T extends Enum<?>> void addSpruceCycleOption(String optionName, Supplier<T> getMethod, Consumer<Integer> setMethod, boolean hasTooltip) {
         this.spruceOptions.add(new SpruceCyclingOption("cactus_config.option." + optionName, setMethod,
-                (option) -> option.getDisplayText(new LiteralText(String.valueOf(getMethod.get()))),
+                (option) -> option.getDisplayText(ConfigUtil.getCycleOptionText(optionName, getMethod.get())),
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
