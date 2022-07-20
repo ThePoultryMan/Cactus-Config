@@ -192,6 +192,12 @@ public abstract class ConfigManager {
         optionHolder.addSpruceSliderOption(path, min, max, step, getter, setter, hasTooltip);
     }
 
+    public <T extends Enum<?>> void getAndCreateCycleOption(OptionHolder optionHolder, String path, T defaultValue, Supplier<T> getter, Consumer<T> setter, Consumer<Integer> cycleMethod, boolean hasTooltip) {
+        T value = this.config.getOrElse(path, defaultValue);
+        setter.accept(value);
+        optionHolder.addSpruceCycleOption(path, getter, cycleMethod, hasTooltip);
+    }
+
     /**
      * <p>Sets the value of the key at the end of the specified path.
      * After the key has been set the file will be saved.</p>
@@ -220,11 +226,11 @@ public abstract class ConfigManager {
      * @return The value of the wanted key ({@code optionPath}), or the
      * value of the newly created key ({@code defaultValue}).
      */
-    public Object getConfigOption(String optionPath, Object defaultValue) {
+    public <T> T getConfigOption(String optionPath, T defaultValue) {
         if (this.config.contains(optionPath)) {
             return this.config.get(optionPath);
         } else {
-            Object obj = this.config.set(optionPath, defaultValue);
+            T obj = this.config.set(optionPath, defaultValue);
             this.config.save();
             return obj;
         }

@@ -16,24 +16,31 @@ import io.github.thepoultryman.cactusconfig.OptionHolder;
 import io.github.thepoultryman.cactusconfig.util.CactusScreenUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ConfigScreen extends SpruceScreen {
     public final Screen parent;
-    private final Text screenTitle;
     public final ConfigManager configManager;
     public final OptionHolder[] optionHolders;
+    private final ScreenCustomizer screenCustomizer;
     private boolean reset;
 
     public ConfigScreen(Text title, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
         super(title);
-        this.screenTitle = title.copy().formatted(Formatting.WHITE);
         this.parent = parent;
         this.configManager = configManager;
         this.optionHolders = optionHolders;
+        this.screenCustomizer = new ScreenCustomizer(title);
+    }
+
+    public ConfigScreen(ScreenCustomizer screenCustomizer, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
+        super(screenCustomizer.getTitle());
+        this.parent = parent;
+        this.configManager = configManager;
+        this.optionHolders = optionHolders;
+        this.screenCustomizer = screenCustomizer;
     }
 
     @Override
@@ -47,7 +54,7 @@ public class ConfigScreen extends SpruceScreen {
         }
 
         // Title Widget
-        this.addDrawableChild(new SpruceLabelWidget(Position.of(this, CactusScreenUtil.getTabWidth(tabs), 2), this.screenTitle,
+        this.addDrawableChild(new SpruceLabelWidget(Position.of(this, CactusScreenUtil.getTabWidth(tabs), 2), this.screenCustomizer.getTitle(),
                 CactusScreenUtil.getTabAccountedWidth(tabs), true));
 
         // Reset and Done Button
@@ -76,7 +83,6 @@ public class ConfigScreen extends SpruceScreen {
             optionHolder.spruceOptions.set(0, optionHolder.spruceOptions.get(1));
             optionHolder.spruceOptions.remove(1);
         }
-
         // Find where the separators are located.
         List<Integer> separatorIndexes = new ArrayList<>();
         for (int i = 0; i < optionHolder.spruceOptions.size(); i++) {
@@ -89,13 +95,20 @@ public class ConfigScreen extends SpruceScreen {
         for (int separatorIndex : separatorIndexes) {
             List<SpruceOption> optionSubList = optionHolder.spruceOptions.subList(currentIndex, separatorIndex);
 
-            // Add options in pairs, and add a single option at the end.
-            double pairs = Math.floor(optionSubList.size() / 2f);
-            for (int i = 0; i < pairs;) {
-                options.addOptionEntry(optionSubList.get(i), optionSubList.get(++i));
-            }
-            if (pairs * 2 != optionSubList.size()) {
-                options.addSingleOptionEntry(optionSubList.get(optionSubList.size() - 1));
+            if (!this.screenCustomizer.shouldUseOneOptionColumn()) {
+                // Add options in pairs, and add a single option at the end.
+                double pairs = Math.floor(optionSubList.size() / 2f);
+                for (int i = 0; i < pairs; ) {
+                    options.addOptionEntry(optionSubList.get(i), optionSubList.get(++i));
+                }
+                if (pairs * 2 != optionSubList.size()) {
+                    options.addSingleOptionEntry(optionSubList.get(optionSubList.size() - 1));
+                }
+            } else {
+                // Add options by themselves.
+                for (SpruceOption option : optionSubList) {
+                    options.addSingleOptionEntry(option);
+                }
             }
 
             // Mark the current index for next loop.

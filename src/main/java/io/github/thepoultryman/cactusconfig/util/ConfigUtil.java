@@ -2,6 +2,7 @@ package io.github.thepoultryman.cactusconfig.util;
 
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -22,5 +23,9 @@ public final class ConfigUtil {
     public static ItemStack getItemStack(Identifier identifier, String count) {
         Integer itemCount = CactusUtil.tryIntegerParse(count);
         return new ItemStack(getItemFromIdentifier(identifier), itemCount != null ? itemCount : 1);
+    }
+
+    public static TranslatableText getCycleOptionText(String optionPath, Enum<?> cycleOptions) {
+        return new TranslatableText("cactus_config.option." + optionPath + "." + cycleOptions.name());
     }
 }

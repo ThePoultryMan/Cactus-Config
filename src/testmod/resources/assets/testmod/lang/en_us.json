@@ -1,4 +1,5 @@
 {
+    "cactus_config.separator.basic.a_test_separator": "A Test Separator",
     "cactus_config.option.basic.a_boolean": "A Boolean",
     "cactus_config.option.desc.basic.a_boolean": "A boolean example",
     "cactus_config.option.basic.a_second_boolean": "A Second Boolean",
@@ -7,6 +8,12 @@
     "cactus_config.separator.tooltip.basic.wow_a_separator": "This is a super cool tooltip on a super cool separator.",
     "cactus_config.option.basic.another_boolean": "Another Boolean !?!!?!",
     "cactus_config.option.desc.basic.another_boolean": "Look at the lazy guy not implementing any other options besides booleans!",
+    "cactus_config.option.basic.test_enum": "Test Enum",
+    "cactus_config.option.desc.basic.test_enum": "A test cycling option using enums.",
+    "cactus_config.option.basic.test_enum.ONE": "First Test Enum Value",
+    "cactus_config.option.basic.test_enum.TWO": "Second Test Enum Value",
+    "cactus_config.option.basic.test_enum.ANOTHER_ONE": "Yet Another Enum Value",
+    "cactus_config.option.basic.test_enum.WHY": "WHY IS THERE ANOTHER ONE",
     "cactus_config.option.numeric.super_cool_integer": "Super Cool Integer",
     "cactus_config.option.desc.numeric.super_cool_integer": "A demo integer input",
     "cactus_config.option.numeric.super_cool_float": "Super Cool Float",

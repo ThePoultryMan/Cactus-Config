@@ -2,6 +2,7 @@ package io.github.thepoultryman.testmod.config;
 
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
+import io.github.thepoultryman.testmod.config.option.TestCycleOption;
 import net.minecraft.text.LiteralText;
 
 public class TestConfigManager extends ConfigManager {
@@ -9,6 +10,7 @@ public class TestConfigManager extends ConfigManager {
     private boolean aBoolean;
     private boolean aSecondBoolean;
     private boolean anotherBoolean;
+    private TestCycleOption cycleOption;
     public OptionHolder numericTab = new OptionHolder(new LiteralText("Numeric Fields"), new LiteralText("A demo of all numeric fields"));
     private int superCoolInteger;
     private float superCoolFloat;
@@ -30,6 +32,10 @@ public class TestConfigManager extends ConfigManager {
         this.getAndCreateBooleanOption(basic, "basic.a_second_boolean", false, this::getASecondBoolean, this::setASecondBoolean, true);
         this.basic.addSpruceSeparator("basic.wow_a_separator", true, true);
         this.getAndCreateBooleanOption(basic, "basic.another_boolean", true, this::getAnotherBoolean, this::setAnotherBoolean, true);
+        this.getAndCreateCycleOption(basic, "basic.test_enum", TestCycleOption.ONE,
+                () -> this.cycleOption,
+                (value) -> this.cycleOption = value,
+                (amount) -> this.cycleOption = this.cycleOption.next(),true);
 
         this.getAndCreateIntegerOption(numericTab, "numeric.super_cool_integer", 1, this::getSuperCoolInteger, this::setSuperCoolInteger, true);
         this.getAndCreateFloatOption(numericTab, "numeric.super_cool_float", 57.8924D, this::getSuperCoolFloat, this::setSuperCoolFloat, true);
