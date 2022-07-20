@@ -1,4 +1,5 @@
 {
+    "cactus_config.separator.basic.a_test_separator": "A Test Separator",
     "cactus_config.option.basic.a_boolean": "A Boolean",
     "cactus_config.option.desc.basic.a_boolean": "A boolean example",
     "cactus_config.option.basic.a_second_boolean": "A Second Boolean",
