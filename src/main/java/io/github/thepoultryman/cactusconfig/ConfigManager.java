@@ -220,11 +220,11 @@ public abstract class ConfigManager {
      * @return The value of the wanted key ({@code optionPath}), or the
      * value of the newly created key ({@code defaultValue}).
      */
-    public Object getConfigOption(String optionPath, Object defaultValue) {
+    public <T> T getConfigOption(String optionPath, T defaultValue) {
         if (this.config.contains(optionPath)) {
             return this.config.get(optionPath);
         } else {
-            Object obj = this.config.set(optionPath, defaultValue);
+            T obj = this.config.set(optionPath, defaultValue);
             this.config.save();
             return obj;
         }
