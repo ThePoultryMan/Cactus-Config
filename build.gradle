@@ -1,7 +1,8 @@
 plugins {
 	id 'fabric-loom' version '0.10-SNAPSHOT'
 	id 'maven-publish'
-	id "org.quiltmc.quilt-mappings-on-loom" version "3.1.1"
+	id 'org.quiltmc.quilt-mappings-on-loom' version '4.2.0'
+	id 'io.github.p03w.machete' version '1.1.2'
 }
 
 sourceCompatibility = JavaVersion.VERSION_17
@@ -12,6 +13,7 @@ version = project.mod_version
 group = project.maven_group
 
 repositories {
+	mavenCentral()
 	maven {
 		name = 'Quilt'
 		url = 'https://maven.quiltmc.org/repository/release'
@@ -19,6 +21,23 @@ repositories {
 	maven {
 		name = 'Quilt Snapshots'
 		url = 'https://maven.quiltmc.org/repository/snapshot'
+	}
+
+	maven {
+		name = 'Gegy'
+		url = 'https://maven.gegy.dev'
+	}
+
+	maven {
+		name = 'TerraformersMC'
+		url = 'https://maven.terraformersmc.com'
+	}
+}
+
+sourceSets {
+	testmod {
+		compileClasspath += main.compileClasspath
+		runtimeClasspath += main.runtimeClasspath
 	}
 }
 
@@ -30,6 +49,14 @@ dependencies {
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
+	include implementation("com.electronwill.night-config:core:${project.night_config_version}")
+	include implementation("com.electronwill.night-config:toml:${project.night_config_version}")
+
+	modImplementation "com.terraformersmc:modmenu:${project.modmenu_version}"
+
+	testmodImplementation sourceSets.main.output
 }
 
 processResources {
@@ -58,11 +85,28 @@ jar {
 publishing {
 	publications {
 		mavenJava(MavenPublication) {
+			artifactId = 'cactus-config'
+
 			from components.java
+
+			pom {
+				name = 'Cactus Config'
+				description = 'A toml based configuration library for Minecraft.'
+			}
 		}
 	}
 
 	repositories {
-
+		maven {
+			name = 'cloudsmith'
+			url = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			def releasesRepoUrl = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			def snapshotsRepoUrl = 'https://maven.cloudsmith.io/carbon-toast/cactus-config/'
+			url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+			credentials {
+				username = System.getenv('USERNAME')
+				password = System.getenv('API_KEY')
+			}
+		}
 	}
 }

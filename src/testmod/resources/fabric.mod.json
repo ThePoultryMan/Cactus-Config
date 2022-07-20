@@ -1,27 +1,27 @@
 {
     "schemaVersion": 1,
-    "id": "cactusconfig",
+    "id": "testmod",
     "version": "${version}",
 
-    "name": "Cactus Config",
-    "description": "A config library for Minecraft making use of toml4j and SpruceUI",
+    "name": "Cactus Config Test Mod",
+    "description": "A test mod for Cactus Config",
     "authors": [
         "ThePoultryMan"
     ],
     "contact": {
-        "sources": "https://github.com/ThePoultryMan/Cactus-Config"
+        "sources": "https://github.com/ThePoultryMan/Cactus-Config/tree/main/src/testmod"
     },
 
     "license": "MIT",
-    "icon": "assets/cactusconfig/icon.png",
+    "icon": "assets/testmod/icon.png",
 
     "environment": "*",
     "entrypoints": {
         "main": [
-            "io.github.thepoultryman.cactusconfig.CactusConfig"
+            "io.github.thepoultryman.testmod.TestMod"
         ],
         "modmenu": [
-            "io.github.thepoultryman.cactusconfig.mod.ModMenuIntegration"
+            "io.github.thepoultryman.testmod.config.ModMenuIntegration"
         ]
     },
     "mixins": [],
@@ -30,7 +30,8 @@
         "fabricloader": ">=0.12.12",
         "fabric": "*",
         "minecraft": "1.18.x",
-        "java": ">=17"
+        "java": ">=17",
+        "cactusconfig": ">=0.2.0"
     },
     "suggests": {
 
