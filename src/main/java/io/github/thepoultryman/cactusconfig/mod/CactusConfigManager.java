@@ -2,11 +2,10 @@ package io.github.thepoultryman.cactusconfig.mod;
 
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
-import net.minecraft.text.TranslatableText;
-
+import net.minecraft.text.Text;
 public class CactusConfigManager extends ConfigManager {
-    public final OptionHolder general = new OptionHolder(new TranslatableText("cactus_config.mod.tabs.general"),
-            new TranslatableText("cactus_config.mod.tabs.desc.general"));
+    public final OptionHolder general = new OptionHolder(Text.translatable("cactus_config.mod.tabs.general"),
+            Text.translatable("cactus_config.mod.tabs.desc.general"));
     public boolean skipResetConfirmation;
 
     public CactusConfigManager(String fileName) {

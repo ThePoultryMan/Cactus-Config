@@ -3,20 +3,20 @@ package io.github.thepoultryman.testmod.config;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
 import io.github.thepoultryman.testmod.config.option.TestCycleOption;
-import net.minecraft.text.LiteralText;
+import net.minecraft.text.Text;
 
 public class TestConfigManager extends ConfigManager {
-    public OptionHolder basic = new OptionHolder(new LiteralText("hey"), null);
+    public OptionHolder basic = new OptionHolder(Text.literal("hey"), null);
     private boolean aBoolean;
     private boolean aSecondBoolean;
     private boolean anotherBoolean;
     private TestCycleOption cycleOption;
-    public OptionHolder numericTab = new OptionHolder(new LiteralText("Numeric Fields"), new LiteralText("A demo of all numeric fields"));
+    public OptionHolder numericTab = new OptionHolder(Text.literal("Numeric Fields"), Text.literal("A demo of all numeric fields"));
     private int superCoolInteger;
     private float superCoolFloat;
     private double averageDouble;
     private double slidingDouble;
-    public OptionHolder tooManyStringsTab = new OptionHolder(new LiteralText("Too Many Strings"), new LiteralText("Way too many string fields"));
+    public OptionHolder tooManyStringsTab = new OptionHolder(Text.literal("Too Many Strings"), Text.literal("Way too many string fields"));
     private String firstString;
 
     public TestConfigManager(String fileName) {
