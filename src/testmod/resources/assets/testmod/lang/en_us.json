@@ -7,6 +7,8 @@
     "cactus_config.separator.tooltip.basic.wow_a_separator": "This is a super cool tooltip on a super cool separator.",
     "cactus_config.option.basic.another_boolean": "Another Boolean !?!!?!",
     "cactus_config.option.desc.basic.another_boolean": "Look at the lazy guy not implementing any other options besides booleans!",
+    "cactus_config.option.basic.test_enum": "Test Enum",
+    "cactus_config.option.desc.basic.test_enum": "A test cycling option using enums.",
     "cactus_config.option.numeric.super_cool_integer": "Super Cool Integer",
     "cactus_config.option.desc.numeric.super_cool_integer": "A demo integer input",
     "cactus_config.option.numeric.super_cool_float": "Super Cool Float",

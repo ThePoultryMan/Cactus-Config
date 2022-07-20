@@ -221,6 +221,12 @@ public class OptionHolder {
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
+    public <T extends Enum<?>> void addSpruceCycleOption(String optionName, Supplier<T> getMethod, Consumer<Integer> setMethod, boolean hasTooltip) {
+        this.spruceOptions.add(new SpruceCyclingOption("cactus_config.option." + optionName, setMethod,
+                (option) -> option.getDisplayText(new LiteralText(String.valueOf(getMethod.get()))),
+                hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
+    }
+
     /**
      * <p>Adds a separating line within the config screen. This line can
      * have a visible title within it, and can have a tooltip as well.</p>
