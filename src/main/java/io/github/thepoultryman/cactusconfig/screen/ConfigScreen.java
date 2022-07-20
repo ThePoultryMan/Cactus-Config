@@ -6,12 +6,14 @@ import dev.lambdaurora.spruceui.option.SpruceOption;
 import dev.lambdaurora.spruceui.option.SpruceSeparatorOption;
 import dev.lambdaurora.spruceui.screen.SpruceScreen;
 import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
+import dev.lambdaurora.spruceui.widget.SpruceLabelWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
 import io.github.thepoultryman.cactusconfig.CactusConfig;
 import io.github.thepoultryman.cactusconfig.CactusTexts;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
+import io.github.thepoultryman.cactusconfig.util.CactusScreenUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.Text;
 
@@ -20,12 +22,14 @@ import java.util.List;
 
 public class ConfigScreen extends SpruceScreen {
     public final Screen parent;
+    private final Text screenTitle;
     public final ConfigManager configManager;
     public final OptionHolder[] optionHolders;
     private boolean reset;
 
     public ConfigScreen(Text title, Screen parent, ConfigManager configManager, OptionHolder... optionHolders) {
         super(title);
+        this.screenTitle = title;
         this.parent = parent;
         this.configManager = configManager;
         this.optionHolders = optionHolders;
@@ -35,11 +39,17 @@ public class ConfigScreen extends SpruceScreen {
     protected void init() {
         super.init();
 
-        SpruceTabbedWidget tabs = this.addDrawableChild(new SpruceTabbedWidget(Position.origin(), this.width, this.height, this.title));
+        // Tabs
+        SpruceTabbedWidget tabs = this.addDrawableChild(new SpruceTabbedWidget(Position.origin(), this.width, this.height, null));
         for (OptionHolder optionHolder : optionHolders) {
             tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
 
+        // Title Widget
+        this.addDrawableChild(new SpruceLabelWidget(Position.of(this, CactusScreenUtil.getTabWidth(tabs), 2), this.screenTitle,
+                CactusScreenUtil.getTabAccountedWidth(tabs), true));
+
+        // Reset and Done Button
         int xLocation = this.configManager.canReset() ? this.width / 2 + 4 : this.width / 2 - 75;
         this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 28), 150, 20, SpruceTexts.GUI_DONE,
                 button -> this.client.setScreen(this.parent)));
@@ -59,7 +69,7 @@ public class ConfigScreen extends SpruceScreen {
     }
 
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
-        var options = new SpruceOptionListWidget(Position.origin(), width, height);
+        var options = new SpruceOptionListWidget(Position.of(0, 15), width, height);
 
         // Find where the separators are located.
         List<Integer> separatorIndexes = new ArrayList<>();
