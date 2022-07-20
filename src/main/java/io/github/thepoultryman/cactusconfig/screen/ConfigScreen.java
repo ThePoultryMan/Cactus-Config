@@ -9,7 +9,7 @@ import dev.lambdaurora.spruceui.widget.SpruceButtonWidget;
 import dev.lambdaurora.spruceui.widget.container.SpruceOptionListWidget;
 import dev.lambdaurora.spruceui.widget.container.tabbed.SpruceTabbedWidget;
 import io.github.thepoultryman.cactusconfig.CactusConfig;
-import io.github.thepoultryman.cactusconfig.CactusConfigTexts;
+import io.github.thepoultryman.cactusconfig.CactusTexts;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
 import net.minecraft.client.gui.screen.Screen;
@@ -49,7 +49,7 @@ public class ConfigScreen extends SpruceScreen {
                 if (CactusConfig.CACTUS_CONFIG_MANAGER.skipResetConfirmation) this.resetConfig();
                 if (!this.reset) {
                     this.reset = true;
-                    button.setMessage(CactusConfigTexts.ARE_YOU_SURE);
+                    button.setMessage(CactusTexts.ARE_YOU_SURE);
                 } else {
                     button.setMessage(SpruceTexts.RESET_TEXT);
                     this.resetConfig();
