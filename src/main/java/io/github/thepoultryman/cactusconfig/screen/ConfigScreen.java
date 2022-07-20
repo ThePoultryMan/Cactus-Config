@@ -72,6 +72,11 @@ public class ConfigScreen extends SpruceScreen {
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
         var options = new SpruceOptionListWidget(Position.of(0, 15), width, height);
 
+        if (optionHolder.spruceOptions.get(1) instanceof SpruceSeparatorOption) {
+            optionHolder.spruceOptions.set(0, optionHolder.spruceOptions.get(1));
+            optionHolder.spruceOptions.remove(1);
+        }
+
         // Find where the separators are located.
         List<Integer> separatorIndexes = new ArrayList<>();
         for (int i = 0; i < optionHolder.spruceOptions.size(); i++) {

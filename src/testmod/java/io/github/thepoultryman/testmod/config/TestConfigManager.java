@@ -25,6 +25,7 @@ public class TestConfigManager extends ConfigManager {
     public void loadConfig() {
         super.loadConfig();
 
+        this.basic.addSpruceSeparator("basic.a_test_separator", true, false);
         this.getAndCreateBooleanOption(basic, "basic.a_boolean", true, this::getaBoolean, this::setaBoolean, true);
         this.getAndCreateBooleanOption(basic, "basic.a_second_boolean", false, this::getASecondBoolean, this::setASecondBoolean, true);
         this.basic.addSpruceSeparator("basic.wow_a_separator", true, true);
