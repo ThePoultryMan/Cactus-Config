@@ -31,7 +31,7 @@
         "fabric": "*",
         "minecraft": "1.18.x",
         "java": ">=17",
-        "cactusconfig": ">=0.2.0"
+        "cactusconfig": ">=1.0.0"
     },
     "suggests": {
 
