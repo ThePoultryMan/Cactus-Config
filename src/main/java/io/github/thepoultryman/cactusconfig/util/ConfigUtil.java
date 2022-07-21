@@ -1,5 +1,7 @@
 package io.github.thepoultryman.cactusconfig.util;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -27,5 +29,9 @@ public final class ConfigUtil {
 
     public static Text getCycleOptionText(String optionPath, Enum<?> cycleOptions) {
         return Text.translatable("cactus_config.option." + optionPath + "." + cycleOptions.name());
+    }
+
+    public static boolean isServerEnvironment() {
+        return FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
     }
 }
