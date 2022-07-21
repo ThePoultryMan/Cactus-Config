@@ -34,8 +34,4 @@ public final class ConfigUtil {
     public static boolean isServerEnvironment() {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
     }
-
-    public static boolean isServerEnvironment() {
-        return FabricLoader.getInstance().getEnvironmentType() == EnvType.SERVER;
-    }
 }
