@@ -1,6 +1,7 @@
 package io.github.thepoultryman.cactusconfig;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
+import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.util.function.Consumer;
@@ -9,7 +10,8 @@ import java.util.function.Supplier;
 
 public abstract class ConfigManager {
     public final String fileName;
-    public final FileConfig config;
+    public FileConfig config = null;
+    public final boolean loadOnServer;
 
     /**
      * <p>When creating the "template" TOML file, make sure that you put it
@@ -20,15 +22,28 @@ public abstract class ConfigManager {
      *                 the '.toml' at the end. To put the file within a
      *                 sub-folder, use forward slashes.
      */
-    public ConfigManager(String fileName) {
+    public ConfigManager(String fileName, boolean loadOnServer) {
         this.fileName = fileName;
-        this.config = FileConfig.builder(FabricLoader.getInstance().getConfigDir() + "/" + this.fileName + ".toml")
+        this.loadOnServer = loadOnServer;
+        if (!ConfigUtil.isServerEnvironment()) {
+            this.config = this.buildFileConfig();
+        } else if (ConfigUtil.isServerEnvironment() && this.loadOnServer) {
+            this.config = this.buildFileConfig();
+        }
+    }
+
+    private FileConfig buildFileConfig() {
+        return FileConfig.builder(FabricLoader.getInstance().getConfigDir() + "/" + this.fileName + ".toml")
                 .defaultResource("/" + this.fileName + ".toml").build();
     }
 
     public void loadConfig() {
-        this.config.load();
+        if (this.config != null) {
+            this.load();
+        }
     }
+
+    protected abstract void load();
 
     public abstract boolean canReset();
 

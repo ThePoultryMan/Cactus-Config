@@ -19,14 +19,12 @@ public class TestConfigManager extends ConfigManager {
     public OptionHolder tooManyStringsTab = new OptionHolder(new LiteralText("Too Many Strings"), new LiteralText("Way too many string fields"));
     private String firstString;
 
-    public TestConfigManager(String fileName) {
-        super(fileName);
+    public TestConfigManager(String fileName, boolean loadOnServer) {
+        super(fileName, loadOnServer);
     }
 
     @Override
-    public void loadConfig() {
-        super.loadConfig();
-
+    public void load() {
         this.basic.addSpruceSeparator("basic.a_test_separator", true, false);
         this.getAndCreateBooleanOption(basic, "basic.a_boolean", true, this::getaBoolean, this::setaBoolean, true);
         this.getAndCreateBooleanOption(basic, "basic.a_second_boolean", false, this::getASecondBoolean, this::setASecondBoolean, true);
