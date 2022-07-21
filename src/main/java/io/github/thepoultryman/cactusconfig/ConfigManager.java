@@ -135,9 +135,9 @@ public abstract class ConfigManager {
      * @param setter The method that will be used to set the value of this
      *               option.
      */
-    public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, int defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
-        int value = this.config.getOrElse(path, defaultValue);
-        setter.accept(value);
+    public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, double defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
+        double value = this.config.getOrElse(path, defaultValue);
+        setter.accept((int) value);
         optionHolder.addSpruceIntegerOption(path, getter, setter, hasTooltip);
     }
 
