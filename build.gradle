@@ -81,15 +81,6 @@ jar {
 	}
 }
 
-loom {
-	runs {
-		testmodClient {
-			client()
-			source(sourceSets.testmod)
-		}
-	}
-}
-
 // configure the maven publication
 publishing {
 	publications {
