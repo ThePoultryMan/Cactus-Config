@@ -32,7 +32,9 @@ public class OptionHolder {
     public OptionHolder(Text title, @Nullable Text description) {
         this.title = title;
         this.description = description;
-        this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.title_separator", false, null));
+        if (!ConfigUtil.isServerEnvironment()) {
+            this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.title_separator", false, null));
+        }
     }
 
     /**
@@ -56,6 +58,7 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceToggleOption(String optionName, Supplier<Boolean> getMethod, Consumer<Boolean> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceToggleBooleanOption("cactus_config.option." + optionName, getMethod, setMethod,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -82,6 +85,7 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, (s) -> true,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -111,6 +115,7 @@ public class OptionHolder {
      *                  field is valid.
      */
     public void addSpruceStringOption(String optionName, Supplier<String> getMethod, Consumer<String> setMethod, boolean hasTooltip, Predicate<String> predicate) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceStringOption("cactus_config.option." + optionName, getMethod, setMethod, predicate,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -136,6 +141,7 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceIntegerOption(String optionName, Supplier<Integer> getMethod, Consumer<Integer> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceIntegerInputOption("cactus_config.option." + optionName, getMethod, setMethod,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -161,6 +167,7 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceFloatOption(String optionName, Supplier<Float> getMethod, Consumer<Float> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceFloatInputOption("cactus_config.option." + optionName, getMethod, setMethod,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -186,6 +193,7 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceDoubleOption(String optionName, Supplier<Double> getMethod, Consumer<Double> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceDoubleInputOption("cactus_config.option." + optionName, getMethod, setMethod,
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
@@ -217,12 +225,14 @@ public class OptionHolder {
      *                   won't be displayed.
      */
     public void addSpruceSliderOption(String optionName, double min, double max, float step, Supplier<Double> getMethod, Consumer<Double> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceDoubleOption("cactus_config.option." + optionName, min, max, step, getMethod, setMethod,
                 (option) -> option.getDisplayText(new LiteralText(String.valueOf(getMethod.get()))),
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
     }
 
     public <T extends Enum<?>> void addSpruceCycleOption(String optionName, Supplier<T> getMethod, Consumer<Integer> setMethod, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceCyclingOption("cactus_config.option." + optionName, setMethod,
                 (option) -> option.getDisplayText(ConfigUtil.getCycleOptionText(optionName, getMethod.get())),
                 hasTooltip ? new TranslatableText("cactus_config.option.desc." + optionName) : null));
@@ -249,6 +259,7 @@ public class OptionHolder {
      *                   language file.
      */
     public void addSpruceSeparator(String separatorName, boolean showTitle, boolean hasTooltip) {
+        if (ConfigUtil.isServerEnvironment()) return;
         this.spruceOptions.add(new SpruceSeparatorOption("cactus_config.separator." + separatorName, showTitle,
                 hasTooltip ? new TranslatableText("cactus_config.separator.tooltip." + separatorName) : null));
     }
