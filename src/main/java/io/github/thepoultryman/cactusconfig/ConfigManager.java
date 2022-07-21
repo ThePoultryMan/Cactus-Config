@@ -39,6 +39,7 @@ public abstract class ConfigManager {
 
     public void loadConfig() {
         if (this.config != null) {
+            this.config.load();
             this.load();
         }
     }
