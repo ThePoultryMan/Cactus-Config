@@ -9,13 +9,11 @@ public class CactusConfigManager extends ConfigManager {
     public boolean skipResetConfirmation;
 
     public CactusConfigManager(String fileName) {
-        super(fileName);
+        super(fileName, false);
     }
 
     @Override
-    public void loadConfig() {
-        super.loadConfig();
-
+    protected void load() {
         this.getAndCreateBooleanOption(general, "mod.general.skip_reset_confirmation", false,
                 () -> this.skipResetConfirmation, this::setSkipResetConfirmation, true);
     }
