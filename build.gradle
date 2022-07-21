@@ -48,7 +48,8 @@ dependencies {
 	})
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	// The bundled version of SpruceUI contains the necessary FAPI modules, and there is no reason to include them twice.
+	//modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
 	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
 	include implementation("com.electronwill.night-config:core:${project.night_config_version}")
