@@ -97,14 +97,7 @@ public class ConfigScreen extends SpruceScreen {
             List<SpruceOption> optionSubList = optionHolder.spruceOptions.subList(currentIndex, separatorIndex);
 
             if (!this.screenCustomizer.shouldUseOneOptionColumn()) {
-                // Add options in pairs, and add a single option at the end.
-                double pairs = Math.floor(optionSubList.size() / 2f);
-                for (int i = 0; i < pairs; ) {
-                    options.addOptionEntry(optionSubList.get(i), optionSubList.get(++i));
-                }
-                if (pairs * 2 != optionSubList.size()) {
-                    options.addSingleOptionEntry(optionSubList.get(optionSubList.size() - 1));
-                }
+                options.addAll(optionSubList.toArray(new SpruceOption[0]));
             } else {
                 // Add options by themselves.
                 for (SpruceOption option : optionSubList) {
