@@ -5,6 +5,8 @@ import io.github.thepoultryman.cactusconfig.OptionHolder;
 import io.github.thepoultryman.testmod.config.option.TestCycleOption;
 import net.minecraft.text.LiteralText;
 
+import java.util.List;
+
 public class TestConfigManager extends ConfigManager {
     public OptionHolder basic = new OptionHolder(new LiteralText("hey"), null);
     private boolean aBoolean;
@@ -18,6 +20,7 @@ public class TestConfigManager extends ConfigManager {
     private double slidingDouble;
     public OptionHolder tooManyStringsTab = new OptionHolder(new LiteralText("Too Many Strings"), new LiteralText("Way too many string fields"));
     private String firstString;
+    private String testString;
 
     public TestConfigManager(String fileName, boolean loadOnServer) {
         super(fileName, loadOnServer);
@@ -42,6 +45,12 @@ public class TestConfigManager extends ConfigManager {
         this.getAndCreateSliderOption(numericTab, "numeric.sliding_double", 120D, 30D, 240D, 1f, this::getSlidingDouble, this::setSlidingDouble, false);
 
         this.getAndCreateStringOption(tooManyStringsTab, "too_many_strings.first_string", "", this::getFirstString, this::setFirstString, true);
+
+        List<String> testOptions = List.of("a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "hey", "yeah", "another", "one");
+        for (String testOption : testOptions) {
+            this.getAndCreateStringOption(tooManyStringsTab, "too_many_strings." + testOption, "none",
+                    () -> testString, (newValue) -> testString = newValue, false);
+        }
     }
 
     @Override
