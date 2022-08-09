@@ -39,6 +39,7 @@ public abstract class ConfigManager {
 
     public void loadConfig() {
         if (this.config != null) {
+            this.config.load();
             this.load();
         }
     }
@@ -136,7 +137,7 @@ public abstract class ConfigManager {
      */
     public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, int defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
         int value = this.config.getOrElse(path, defaultValue);
-        setter.accept(value);
+        setter.accept( value);
         optionHolder.addSpruceIntegerOption(path, getter, setter, hasTooltip);
     }
 
