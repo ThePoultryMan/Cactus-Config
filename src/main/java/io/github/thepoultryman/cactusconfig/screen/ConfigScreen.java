@@ -58,11 +58,12 @@ public class ConfigScreen extends SpruceScreen {
                 CactusScreenUtil.getTabAccountedWidth(tabs), true));
 
         // Reset and Done Button
-        int xLocation = this.configManager.canReset() ? this.width / 2 + 4 : this.width / 2 - 75;
-        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 28), 150, 20, SpruceTexts.GUI_DONE,
+        int xLocation = this.configManager.canReset() ? (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 117 : (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 23;
+        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 25), 135, 20, SpruceTexts.GUI_DONE,
                 button -> this.client.setScreen(this.parent)));
         if (this.configManager.canReset()) {
-            this.addDrawableChild(new SpruceButtonWidget(Position.of(this, this.width / 2 - 154, this.height - 28), 150, 20, SpruceTexts.RESET_TEXT,
+            this.addDrawableChild(new SpruceButtonWidget(Position.of(this, (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 - 50, this.height - 25),
+                    135, 20, SpruceTexts.RESET_TEXT,
                     button -> {
                 if (CactusConfig.CACTUS_CONFIG_MANAGER.skipResetConfirmation) this.resetConfig();
                 if (!this.reset) {
@@ -77,7 +78,7 @@ public class ConfigScreen extends SpruceScreen {
     }
 
     private SpruceOptionListWidget buildTab(OptionHolder optionHolder, int width, int height) {
-        var options = new SpruceOptionListWidget(Position.of(0, 15), width, height);
+        var options = new SpruceOptionListWidget(Position.of(0, 15), width, height - 46);
 
         if (optionHolder.spruceOptions.get(1) instanceof SpruceSeparatorOption) {
             optionHolder.spruceOptions.set(0, optionHolder.spruceOptions.get(1));
