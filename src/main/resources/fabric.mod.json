@@ -4,7 +4,7 @@
     "version": "${version}",
 
     "name": "Cactus Config",
-    "description": "A config library for Minecraft making use of toml4j and SpruceUI",
+    "description": "A config library for Minecraft making use of Night Config and SpruceUI",
     "authors": [
         "ThePoultryMan"
     ],
