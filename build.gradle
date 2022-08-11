@@ -12,6 +12,11 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+Set<String> apiModules = [
+        'fabric-resource-loader-v0',
+		'fabric-rendering-v1'
+]
+
 repositories {
 	mavenCentral()
 	maven {
@@ -50,6 +55,10 @@ dependencies {
 
 	// The bundled version of SpruceUI contains the necessary FAPI modules, and there is no reason to include them twice.
 	//modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+	apiModules.forEach {
+		include modImplementation(fabricApi.module(it, project.fabric_version))
+	}
 
 	include modImplementation("dev.lambdaurora:spruceui:${project.spruceui_version}")
 	include implementation("com.electronwill.night-config:core:${project.night_config_version}")
