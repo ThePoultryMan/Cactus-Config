@@ -4,17 +4,17 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.registry.Registries;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
-import net.minecraft.util.registry.Registry;
 
 public final class ConfigUtil {
     public static Item getItemFromIdentifier(String identifier) {
-        return Registry.ITEM.get(new Identifier(identifier));
+        return Registries.ITEM.get(new Identifier(identifier));
     }
 
     public static Item getItemFromIdentifier(Identifier identifier) {
-        return Registry.ITEM.get(identifier);
+        return Registries.ITEM.get(identifier);
     }
 
     public static ItemStack getItemStack(String identifier, String count) {

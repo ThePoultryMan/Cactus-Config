@@ -4,8 +4,8 @@ import dev.lambdaurora.spruceui.option.*;
 import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
+import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
