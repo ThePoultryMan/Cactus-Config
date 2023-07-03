@@ -27,8 +27,8 @@
     "mixins": [],
 
     "depends": {
-        "fabricloader": ">=0.14.6",
-        "minecraft": "1.19.x",
+        "fabricloader": ">=0.14.21",
+        "minecraft": "1.20.x",
         "java": ">=17",
         "cactusconfig": ">=1.0.0"
     },
