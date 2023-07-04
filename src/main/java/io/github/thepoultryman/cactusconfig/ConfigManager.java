@@ -91,6 +91,7 @@ public abstract class ConfigManager {
                             (newValue) -> {
                                 try {
                                     field.set(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
                                 } catch (IllegalAccessException ignored) {}
                             },
                             annotation.tooltip()
