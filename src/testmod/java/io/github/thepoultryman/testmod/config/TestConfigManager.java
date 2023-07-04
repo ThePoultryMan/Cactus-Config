@@ -11,7 +11,9 @@ public class TestConfigManager extends ConfigManager {
     public OptionHolder basic = new OptionHolder(Text.literal("hey"), null);
     @Options.Boolean(tab = "basic")
     private boolean aBoolean;
+    @Options.Boolean(tab = "basic")
     private boolean aSecondBoolean;
+    @Options.Boolean(tab = "basic")
     private boolean anotherBoolean;
     private TestCycleOption cycleOption;
     @Options.OptionHolder
