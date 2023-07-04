@@ -4,6 +4,9 @@ import com.electronwill.nightconfig.core.file.FileConfig;
 import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.lang.reflect.Field;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -12,6 +15,8 @@ public abstract class ConfigManager {
     public final String fileName;
     public FileConfig config = null;
     public final boolean loadOnServer;
+
+    public Map<String, OptionHolder> optionHolders = new HashMap<>();
 
     /**
      * <p>When creating the "template" TOML file, make sure that you put it
@@ -41,6 +46,58 @@ public abstract class ConfigManager {
         if (this.config != null) {
             this.config.load();
             this.load();
+
+            for (Field field : this.getClass().getDeclaredFields()) {
+                if (field.isAnnotationPresent(Options.OptionHolder.class)) {
+                    try {
+                        this.optionHolders.put(field.getName(), (OptionHolder) field.get(this));
+                    } catch (IllegalAccessException ignore) {}
+                } else if (field.isAnnotationPresent(Options.Boolean.class)) { // Boolean Option
+                    Options.Boolean annotation = field.getAnnotation(Options.Boolean.class);
+                    field.setAccessible(true);
+                    this.getAndCreateBooleanOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getBoolean(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setBoolean(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.Integer.class)) { // Integer option
+                    Options.Integer annotation = field.getAnnotation(Options.Integer.class);
+                    field.setAccessible(true);
+                    this.getAndCreateIntegerOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getInt(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setInt(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                }
+            }
         }
     }
 
@@ -49,6 +106,10 @@ public abstract class ConfigManager {
     public abstract boolean canReset();
 
     public void reset() {}
+
+    public OptionHolder[] getOptionHolders() {
+        return this.optionHolders.values().toArray(new OptionHolder[0]);
+    }
 
     /**
      * <p>Adds a new toggle switch option to the {@code optionHolder} provided.</p>
@@ -137,7 +198,7 @@ public abstract class ConfigManager {
      */
     public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, int defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
         int value = this.config.getOrElse(path, defaultValue);
-        setter.accept( value);
+        setter.accept(value);
         optionHolder.addSpruceIntegerOption(path, getter, setter, hasTooltip);
     }
 
