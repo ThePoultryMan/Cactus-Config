@@ -20,6 +20,14 @@ public class Options {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
+    public @interface StringField {
+        boolean tooltip() default false;
+        String tab() default "options";
+        String defaultValue() default "";
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
     public @interface Integer {
         boolean tooltip() default false;
         String tab() default "options";

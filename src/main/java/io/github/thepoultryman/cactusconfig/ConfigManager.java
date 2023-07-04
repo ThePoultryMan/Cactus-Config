@@ -74,6 +74,27 @@ public abstract class ConfigManager {
                             },
                             annotation.tooltip()
                     );
+                } else if (field.isAnnotationPresent(Options.StringField.class)) { // String option
+                    Options.StringField annotation = field.getAnnotation(Options.StringField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateStringOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return (String) field.get(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.set(this, newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
                 } else if (field.isAnnotationPresent(Options.Integer.class)) { // Integer option
                     Options.Integer annotation = field.getAnnotation(Options.Integer.class);
                     field.setAccessible(true);

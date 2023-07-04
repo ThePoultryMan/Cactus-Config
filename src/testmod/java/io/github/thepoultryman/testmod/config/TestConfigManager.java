@@ -23,9 +23,11 @@ public class TestConfigManager extends ConfigManager {
     private float superCoolFloat;
     private double averageDouble;
     private double slidingDouble;
-    public OptionHolder tooManyStringsTab = new OptionHolder(Text.literal("Too Many Strings"), Text.literal("Way too many string fields"));
+
+    @Options.OptionHolder
+    public OptionHolder tooManyStrings = new OptionHolder(Text.literal("Too Many Strings"), Text.literal("Way too many string fields"));
+    @Options.StringField(tab = "tooManyStrings")
     private String firstString;
-    private String testString;
 
     public TestConfigManager(String fileName, boolean loadOnServer) {
         super(fileName, loadOnServer);
@@ -65,85 +67,13 @@ public class TestConfigManager extends ConfigManager {
 
     @Override
     public void reset() {
-        this.setaBoolean(true);
-        this.setASecondBoolean(false);
-        this.setAnotherBoolean(true);
-        this.setSuperCoolInteger(1);
-        this.setSuperCoolFloat(57.8924f);
-        this.setAverageDouble(23.2D);
-        this.setSlidingDouble(120D);
-        this.setFirstString("");
-    }
-
-    public boolean getaBoolean() {
-        return this.aBoolean;
-    }
-
-    public void setaBoolean(boolean b) {
-        this.aBoolean = b;
-        this.setConfigOption("basic.a_boolean", b);
-    }
-
-    public boolean getASecondBoolean() {
-        return this.aSecondBoolean;
-    }
-
-    public void setASecondBoolean(boolean b) {
-        this.aSecondBoolean = b;
-        this.setConfigOption("basic.a_second_boolean", b);
-    }
-
-    public boolean getAnotherBoolean() {
-        return this.anotherBoolean;
-    }
-
-    public void setAnotherBoolean(boolean b) {
-        this.anotherBoolean = b;
-        this.setConfigOption("basic.another_boolean", b);
-    }
-
-    public int getSuperCoolInteger() {
-        return this.superCoolInteger;
-    }
-
-    public void setSuperCoolInteger(int integer) {
-        this.superCoolInteger = integer;
-        this.setConfigOption("numeric.super_cool_integer", integer);
-    }
-
-    public float getSuperCoolFloat() {
-        return this.superCoolFloat;
-    }
-
-    public void setSuperCoolFloat(float newFloat) {
-        this.superCoolFloat = newFloat;
-        this.setConfigOption("numeric.super_cool_float", newFloat);
-    }
-
-    public double getAverageDouble() {
-        return this.averageDouble;
-    }
-
-    public void setAverageDouble(double avgDouble) {
-        this.averageDouble = avgDouble;
-        this.setConfigOption("numeric.average_double", avgDouble);
-    }
-
-    public double getSlidingDouble() {
-        return this.slidingDouble;
-    }
-
-    public void setSlidingDouble(double slidDouble) {
-        this.slidingDouble = slidDouble;
-        this.setConfigOption("numeric.sliding_double", slidDouble);
-    }
-
-    public String getFirstString() {
-        return this.firstString;
-    }
-
-    public void setFirstString(String string) {
-        this.firstString = string;
-        this.setConfigOption("too_many_strings.first_string", string);
+//        this.setaBoolean(true);
+//        this.setASecondBoolean(false);
+//        this.setAnotherBoolean(true);
+//        this.setSuperCoolInteger(1);
+//        this.setSuperCoolFloat(57.8924f);
+//        this.setAverageDouble(23.2D);
+//        this.setSlidingDouble(120D);
+//        this.setFirstString("");
     }
 }
