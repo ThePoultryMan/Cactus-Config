@@ -33,4 +33,12 @@ public class Options {
         String tab() default "options";
         int defaultValue() default 0;
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface FloatField {
+        boolean tooltip() default false;
+        String tab() default "options";
+        float defaultValue() default 0.0f;
+    }
 }

@@ -118,6 +118,28 @@ public abstract class ConfigManager {
                             },
                             annotation.tooltip()
                     );
+                } else if (field.isAnnotationPresent(Options.FloatField.class)) { // Float option
+                    Options.FloatField annotation = field.getAnnotation(Options.FloatField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateFloatOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getFloat(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setFloat(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
                 }
             }
         }
