@@ -26,6 +26,7 @@ public class TestConfigManager extends ConfigManager {
     private float superCoolFloat;
     @Options.DoubleField(tab = "numeric")
     private double averageDouble;
+    @Options.Slider(tab = "numeric", max = 100, min = -200, step = 2.0f)
     private double slidingDouble;
 
     @Options.OptionHolder

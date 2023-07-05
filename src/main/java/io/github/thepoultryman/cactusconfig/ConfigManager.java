@@ -162,6 +162,31 @@ public abstract class ConfigManager {
                             },
                             annotation.tooltip()
                     );
+                } else if (field.isAnnotationPresent(Options.Slider.class)) { // Slider option
+                    Options.Slider annotation = field.getAnnotation(Options.Slider.class);
+                    field.setAccessible(true);
+                    this.getAndCreateSliderOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            annotation.min(),
+                            annotation.max(),
+                            annotation.step(),
+                            () -> {
+                                try {
+                                    return field.getDouble(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setDouble(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
                 }
             }
         }

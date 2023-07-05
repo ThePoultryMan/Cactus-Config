@@ -49,4 +49,15 @@ public class Options {
         String tab() default "options";
         double defaultValue() default 0.0d;
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface Slider {
+        boolean tooltip() default false;
+        String tab() default "options";
+        double defaultValue() default 0.0d;
+        double min() default -10000.0d;
+        double max() default 10000.0d;
+        float step() default 1.0f;
+    }
 }
