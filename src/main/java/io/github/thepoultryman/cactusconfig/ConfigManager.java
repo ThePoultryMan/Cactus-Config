@@ -192,7 +192,7 @@ public abstract class ConfigManager {
         }
     }
 
-    protected abstract void load();
+    protected void load() {}
 
     public abstract boolean canReset();
 
