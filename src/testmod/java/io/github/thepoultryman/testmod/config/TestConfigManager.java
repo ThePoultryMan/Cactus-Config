@@ -24,6 +24,7 @@ public class TestConfigManager extends ConfigManager {
     private int lessCoolInteger;
     @Options.FloatField(tab = "numeric")
     private float superCoolFloat;
+    @Options.DoubleField(tab = "numeric")
     private double averageDouble;
     private double slidingDouble;
 

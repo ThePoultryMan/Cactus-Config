@@ -41,4 +41,12 @@ public class Options {
         String tab() default "options";
         float defaultValue() default 0.0f;
     }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
+    public @interface DoubleField {
+        boolean tooltip() default false;
+        String tab() default "options";
+        double defaultValue() default 0.0d;
+    }
 }

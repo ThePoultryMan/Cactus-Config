@@ -140,6 +140,28 @@ public abstract class ConfigManager {
                             },
                             annotation.tooltip()
                     );
+                } else if (field.isAnnotationPresent(Options.DoubleField.class)) { // Double option
+                    Options.DoubleField annotation = field.getAnnotation(Options.DoubleField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateDoubleOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getDouble(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setDouble(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
                 }
             }
         }
