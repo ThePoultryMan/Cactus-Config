@@ -16,7 +16,7 @@ public abstract class ConfigManager {
     public FileConfig config = null;
     public final boolean loadOnServer;
 
-    public Map<String, OptionHolder> optionHolders = new HashMap<>();
+    public final Map<String, OptionHolder> optionHolders = new HashMap<>();
 
     /**
      * <p>When creating the "template" TOML file, make sure that you put it
