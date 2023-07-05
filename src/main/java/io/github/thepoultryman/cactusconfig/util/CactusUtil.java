@@ -11,4 +11,14 @@ public final class CactusUtil {
             return null;
         }
     }
+
+    public static class ConfigOption {
+        public final boolean showTitle;
+        public final boolean hasTooltip;
+
+        public ConfigOption(boolean showTitle, boolean hasTooltip) {
+            this.showTitle = showTitle;
+            this.hasTooltip = hasTooltip;
+        }
+    }
 }

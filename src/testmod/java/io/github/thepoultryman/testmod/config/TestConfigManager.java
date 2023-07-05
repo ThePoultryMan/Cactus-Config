@@ -3,12 +3,15 @@ package io.github.thepoultryman.testmod.config;
 import io.github.thepoultryman.cactusconfig.ConfigManager;
 import io.github.thepoultryman.cactusconfig.OptionHolder;
 import io.github.thepoultryman.cactusconfig.Options;
+import io.github.thepoultryman.cactusconfig.util.CactusUtil;
 import io.github.thepoultryman.testmod.config.option.TestCycleOption;
 import net.minecraft.text.Text;
 
 public class TestConfigManager extends ConfigManager {
     @Options.OptionHolder
     public OptionHolder basic = new OptionHolder(Text.literal("hey"), null);
+    @Options.Separator(tab = "basic")
+    private final CactusUtil.ConfigOption basicSeparator = new CactusUtil.ConfigOption(true, false);
     @Options.Boolean(tab = "basic")
     private boolean aBoolean;
     @Options.Boolean(tab = "basic")

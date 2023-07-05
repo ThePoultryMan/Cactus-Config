@@ -12,6 +12,12 @@ public class Options {
 
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.FIELD)
+    public @interface Separator {
+        String tab() default "options";
+    }
+
+    @Retention(RetentionPolicy.RUNTIME)
+    @Target(ElementType.FIELD)
     public @interface Boolean {
         boolean tooltip() default false;
         String tab() default "options";

@@ -1,6 +1,7 @@
 package io.github.thepoultryman.cactusconfig;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
+import io.github.thepoultryman.cactusconfig.util.CactusUtil;
 import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.fabricmc.loader.api.FabricLoader;
 
@@ -51,6 +52,20 @@ public abstract class ConfigManager {
                     try {
                         this.optionHolders.put(field.getName(), (OptionHolder) field.get(this));
                     } catch (IllegalAccessException ignore) {}
+                } else if (field.isAnnotationPresent(Options.Separator.class)) {
+                    Options.Separator annotation = field.getAnnotation(Options.Separator.class);
+                    if (this.optionHolders.get(annotation.tab()) == null) continue;
+                    field.setAccessible(true);
+                    CactusUtil.ConfigOption separator = null;
+                    try {
+                        separator = (CactusUtil.ConfigOption) field.get(this);
+                    } catch (IllegalAccessException ignored) {}
+                    if (separator == null) continue;
+                    this.optionHolders.get(annotation.tab()).addSpruceSeparator(
+                            field.getName(),
+                            separator.showTitle,
+                            separator.hasTooltip
+                    );
                 } else if (field.isAnnotationPresent(Options.Boolean.class)) { // Boolean Option
                     Options.Boolean annotation = field.getAnnotation(Options.Boolean.class);
                     field.setAccessible(true);
