@@ -6,7 +6,8 @@ import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -16,7 +17,7 @@ public abstract class ConfigManager {
     public FileConfig config = null;
     public final boolean loadOnServer;
 
-    public final Map<String, OptionHolder> optionHolders = new HashMap<>();
+    public final Map<String, OptionHolder> optionHolders = new LinkedHashMap<>();
 
     /**
      * <p>When creating the "template" TOML file, make sure that you put it
@@ -50,6 +51,7 @@ public abstract class ConfigManager {
             for (Field field : this.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Options.OptionHolder.class)) {
                     try {
+                        CactusConfig.LOGGER.info(field.getName());
                         this.optionHolders.put(field.getName(), (OptionHolder) field.get(this));
                     } catch (IllegalAccessException ignore) {}
                 } else if (field.isAnnotationPresent(Options.Separator.class)) {
@@ -258,9 +260,7 @@ public abstract class ConfigManager {
     }
 
     public OptionHolder[] getOptionHolders() {
-        List<OptionHolder> optionHolders = new ArrayList<>(this.optionHolders.values().stream().toList());
-        Collections.reverse(optionHolders); // Reverses the list of option holders, so they are in the order they are created.
-        return optionHolders.toArray(new OptionHolder[0]);
+        return this.optionHolders.values().toArray(new OptionHolder[0]);
     }
 
     /**
