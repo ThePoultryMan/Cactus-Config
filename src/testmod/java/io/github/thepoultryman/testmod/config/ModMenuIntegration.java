@@ -15,7 +15,6 @@ public class ModMenuIntegration implements ModMenuApi {
         //screenCustomizer.useOneOptionColumn();
 
         return (ConfigScreenFactory<Screen>) parent -> new ConfigScreen(screenCustomizer,
-                parent, TestMod.testConfigManager, TestMod.testConfigManager.basic, TestMod.testConfigManager.numericTab,
-                TestMod.testConfigManager.tooManyStringsTab);
+                parent, TestMod.testConfigManager, TestMod.testConfigManager.getOptionHolders());
     }
 }

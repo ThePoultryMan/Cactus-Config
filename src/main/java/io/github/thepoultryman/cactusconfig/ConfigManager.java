@@ -1,9 +1,13 @@
 package io.github.thepoultryman.cactusconfig;
 
 import com.electronwill.nightconfig.core.file.FileConfig;
+import io.github.thepoultryman.cactusconfig.util.CactusUtil;
 import io.github.thepoultryman.cactusconfig.util.ConfigUtil;
 import net.fabricmc.loader.api.FabricLoader;
 
+import java.lang.reflect.Field;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
@@ -12,6 +16,8 @@ public abstract class ConfigManager {
     public final String fileName;
     public FileConfig config = null;
     public final boolean loadOnServer;
+
+    public final Map<String, OptionHolder> optionHolders = new LinkedHashMap<>();
 
     /**
      * <p>When creating the "template" TOML file, make sure that you put it
@@ -41,14 +47,220 @@ public abstract class ConfigManager {
         if (this.config != null) {
             this.config.load();
             this.load();
+
+            for (Field field : this.getClass().getDeclaredFields()) {
+                if (field.isAnnotationPresent(Options.OptionHolder.class)) {
+                    try {
+                        this.optionHolders.put(field.getName(), (OptionHolder) field.get(this));
+                    } catch (IllegalAccessException ignore) {}
+                } else if (field.isAnnotationPresent(Options.Separator.class)) {
+                    Options.Separator annotation = field.getAnnotation(Options.Separator.class);
+                    if (this.optionHolders.get(annotation.tab()) == null) continue;
+                    field.setAccessible(true);
+                    CactusUtil.ConfigOption separator = null;
+                    try {
+                        separator = (CactusUtil.ConfigOption) field.get(this);
+                    } catch (IllegalAccessException ignored) {}
+                    if (separator == null) continue;
+                    this.optionHolders.get(annotation.tab()).addSpruceSeparator(
+                            field.getName(),
+                            separator.showTitle,
+                            separator.hasTooltip
+                    );
+                } else if (field.isAnnotationPresent(Options.Boolean.class)) { // Boolean Option
+                    Options.Boolean annotation = field.getAnnotation(Options.Boolean.class);
+                    field.setAccessible(true);
+                    this.getAndCreateBooleanOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getBoolean(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setBoolean(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.StringField.class)) { // String option
+                    Options.StringField annotation = field.getAnnotation(Options.StringField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateStringOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return (String) field.get(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.set(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.Integer.class)) { // Integer option
+                    Options.Integer annotation = field.getAnnotation(Options.Integer.class);
+                    field.setAccessible(true);
+                    this.getAndCreateIntegerOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getInt(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setInt(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.FloatField.class)) { // Float option
+                    Options.FloatField annotation = field.getAnnotation(Options.FloatField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateFloatOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getFloat(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setFloat(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.DoubleField.class)) { // Double option
+                    Options.DoubleField annotation = field.getAnnotation(Options.DoubleField.class);
+                    field.setAccessible(true);
+                    this.getAndCreateDoubleOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            () -> {
+                                try {
+                                    return field.getDouble(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setDouble(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                } else if (field.isAnnotationPresent(Options.Slider.class)) { // Slider option
+                    Options.Slider annotation = field.getAnnotation(Options.Slider.class);
+                    field.setAccessible(true);
+                    this.getAndCreateSliderOption(
+                            this.optionHolders.get(annotation.tab()),
+                            annotation.tab() + "." + field.getName(),
+                            annotation.defaultValue(),
+                            annotation.min(),
+                            annotation.max(),
+                            annotation.step(),
+                            () -> {
+                                try {
+                                    return field.getDouble(this);
+                                } catch (IllegalAccessException ignored) {
+                                    return annotation.defaultValue();
+                                }
+                            },
+                            (newValue) -> {
+                                try {
+                                    field.setDouble(this, newValue);
+                                    this.setConfigOption(annotation.tab() + "." + field.getName(), newValue);
+                                } catch (IllegalAccessException ignored) {}
+                            },
+                            annotation.tooltip()
+                    );
+                }
+            }
         }
     }
 
-    protected abstract void load();
+    protected void load() {}
 
     public abstract boolean canReset();
 
-    public void reset() {}
+    public void reset() {
+        for (Field field : this.getClass().getDeclaredFields()) {
+            if (field.isAnnotationPresent(Options.Boolean.class)) { // Boolean Option
+                Options.Boolean annotation = field.getAnnotation(Options.Boolean.class);
+                try {
+                    field.setBoolean(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            } else if (field.isAnnotationPresent(Options.StringField.class)) { // String option
+                Options.StringField annotation = field.getAnnotation(Options.StringField.class);
+                field.setAccessible(true);
+                try {
+                    field.set(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            } else if (field.isAnnotationPresent(Options.Integer.class)) { // Integer option
+                Options.Integer annotation = field.getAnnotation(Options.Integer.class);
+                field.setAccessible(true);
+                try {
+                    field.setInt(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            } else if (field.isAnnotationPresent(Options.FloatField.class)) { // Float option
+                Options.FloatField annotation = field.getAnnotation(Options.FloatField.class);
+                field.setAccessible(true);
+                try {
+                    field.setFloat(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            } else if (field.isAnnotationPresent(Options.DoubleField.class)) { // Double option
+                Options.DoubleField annotation = field.getAnnotation(Options.DoubleField.class);
+                field.setAccessible(true);
+                try {
+                    field.setDouble(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            } else if (field.isAnnotationPresent(Options.Slider.class)) { // Slider option
+                Options.Slider annotation = field.getAnnotation(Options.Slider.class);
+                field.setAccessible(true);
+                try {
+                    field.setDouble(this, annotation.defaultValue());
+                    this.setConfigOption(annotation.tab() + "." + field.getName(), annotation.defaultValue());
+                } catch (IllegalAccessException ignored) {}
+            }
+        }
+    }
+
+    public OptionHolder[] getOptionHolders() {
+        return this.optionHolders.values().toArray(new OptionHolder[0]);
+    }
 
     /**
      * <p>Adds a new toggle switch option to the {@code optionHolder} provided.</p>
@@ -137,7 +349,7 @@ public abstract class ConfigManager {
      */
     public void getAndCreateIntegerOption(OptionHolder optionHolder, String path, int defaultValue, Supplier<Integer> getter, Consumer<Integer> setter, boolean hasTooltip) {
         int value = this.config.getOrElse(path, defaultValue);
-        setter.accept( value);
+        setter.accept(value);
         optionHolder.addSpruceIntegerOption(path, getter, setter, hasTooltip);
     }
 
