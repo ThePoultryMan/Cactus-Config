@@ -51,7 +51,6 @@ public abstract class ConfigManager {
             for (Field field : this.getClass().getDeclaredFields()) {
                 if (field.isAnnotationPresent(Options.OptionHolder.class)) {
                     try {
-                        CactusConfig.LOGGER.info(field.getName());
                         this.optionHolders.put(field.getName(), (OptionHolder) field.get(this));
                     } catch (IllegalAccessException ignore) {}
                 } else if (field.isAnnotationPresent(Options.Separator.class)) {
