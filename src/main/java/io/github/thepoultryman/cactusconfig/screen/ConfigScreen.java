@@ -48,21 +48,21 @@ public class ConfigScreen extends SpruceScreen {
         super.init();
 
         // Tabs
-        SpruceTabbedWidget tabs = this.addDrawableChild(new SpruceTabbedWidget(Position.origin(), this.width, this.height, null));
+        SpruceTabbedWidget tabs = this.addDrawableSelectableElement(new SpruceTabbedWidget(Position.origin(), this.width, this.height, null));
         for (OptionHolder optionHolder : optionHolders) {
             tabs.addTabEntry(optionHolder.getTitle(), optionHolder.getDescription(), ((width, height) -> this.buildTab(optionHolder, width, height)));
         }
 
         // Title Widget
-        this.addDrawableChild(new SpruceLabelWidget(Position.of(this, CactusScreenUtil.getTabWidth(tabs), 2), this.screenCustomizer.getTitle(),
+        this.addDrawableSelectableElement(new SpruceLabelWidget(Position.of(this, CactusScreenUtil.getTabWidth(tabs), 2), this.screenCustomizer.getTitle(),
                 CactusScreenUtil.getTabAccountedWidth(tabs), true));
 
         // Reset and Done Button
         int xLocation = this.configManager.canReset() ? (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 117 : (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 23;
-        this.addDrawableChild(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 25), 135, 20, SpruceTexts.GUI_DONE,
+        this.addDrawableSelectableElement(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 25), 135, 20, SpruceTexts.GUI_DONE,
                 button -> this.client.setScreen(this.parent)));
         if (this.configManager.canReset()) {
-            this.addDrawableChild(new SpruceButtonWidget(Position.of(this, (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 - 50, this.height - 25),
+            this.addDrawableSelectableElement(new SpruceButtonWidget(Position.of(this, (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 - 50, this.height - 25),
                     135, 20, SpruceTexts.RESET_TEXT,
                     button -> {
                 if (CactusConfig.CACTUS_CONFIG_MANAGER.skipResetConfirmation) this.resetConfig();
