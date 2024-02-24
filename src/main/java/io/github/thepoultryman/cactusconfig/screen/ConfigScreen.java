@@ -60,7 +60,7 @@ public class ConfigScreen extends SpruceScreen {
         // Reset and Done Button
         int xLocation = this.configManager.canReset() ? (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 117 : (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 + 23;
         this.addDrawableSelectableElement(new SpruceButtonWidget(Position.of(this, xLocation, this.height - 25), 135, 20, SpruceTexts.GUI_DONE,
-                button -> this.client.setScreen(this.parent)));
+                button -> this.client.setScreen(this.parent)).asVanilla());
         if (this.configManager.canReset()) {
             this.addDrawableSelectableElement(new SpruceButtonWidget(Position.of(this, (CactusScreenUtil.getTabAccountedWidth(tabs)) / 2 - 50, this.height - 25),
                     135, 20, SpruceTexts.RESET_TEXT,
